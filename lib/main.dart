@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sssales/paginas/registro.dart';
+import 'package:sssales/paginas/splash.dart';
+import 'package:sssales/paginas/parametros.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Ssales App',
+      title: Parametros.nombreTienda,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         //fontFamily: 'YesevaOne',
         useMaterial3: true,
       ),
-      home: const Registro(),
+      home: const Splash(),
     );
   }
 }
