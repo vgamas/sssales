@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:sssales/paginas/parametros.dart';
-import 'package:sssales/paginas/registro.dart';
+import 'package:sssales/paginas/login.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -21,7 +21,7 @@ class _SplashState extends State<Splash> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Registro(),
+          builder: (context) => Login(),
         ),
       ),
     );

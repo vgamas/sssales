@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sssales/paginas/parametros.dart';
+import 'package:sssales/paginas/registro.dart';
 
-class Registro extends StatelessWidget {
-  const Registro({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null, //AppBar(),
-
-      // en el cuerpo va el titulo y los campos y el boton, se colocan dentro de un SingleChildScrollView para poderlos deplazar hacia
-      // arriba y hacia abajo libremente, para telefonos con pantallas mas pequeñas o cuando se activa el teclado
-
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -19,12 +16,16 @@ class Registro extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "¡Unete a SSsales!",
+                Text(
+                  "¡Bienvenido a SSsales!",
                   style: TextStyle(
                       fontSize: Parametros.tamanoTitulo,
                       fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 Container(
                   margin: EdgeInsets.all(20),
@@ -75,58 +76,9 @@ class Registro extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
                           child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Teléfono',
-                              prefixIcon: Icon(Icons.phone_outlined),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: Parametros.altoCampoLectura,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Dirección',
-                              prefixIcon: Icon(Icons.location_on_outlined),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: Parametros.altoCampoLectura,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white),
-                          child: TextField(
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: 'Contraseña',
-                              prefixIcon: Icon(Icons.lock),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: Parametros.altoCampoLectura,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white),
-                          child: TextField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              labelText: 'Confirmar Contraseña',
                               prefixIcon: Icon(Icons.lock),
                               border: InputBorder.none,
                             ),
@@ -145,11 +97,28 @@ class Registro extends StatelessWidget {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              // Aqui se debe validar y si el usuario se registra correctamente, crearlo en la base de datos,
-                              // actualizar el archivo del usuario que ya esta logueado para poder hacer las compras
+                              // Aqui se debe validar y si el usuario ingresa correctamente, actualizar el archivo del usuario que ya esta logueado para poder hacer las compras
                               // de lo contrario sacar un mensaje de error...
                             },
-                            child: Text('REGISTRO'),
+                            child: Text('INGRESAR'),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Registro()));
+                          },
+                          child: Text(
+                            'No tiene una cuenta?  Regístrese',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 10,
+                            ),
                           ),
                         ),
                       ],
