@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sssales/paginas/splash.dart';
-import 'package:sssales/paginas/parametros.dart';
+import 'package:sssales/vista/paginas/splash.dart';
+import 'package:sssales/vista/paginas/parametros.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:sssales/paginas/parametros.dart';
-import 'package:sssales/paginas/login.dart';
+import 'package:sssales/vista/paginas/parametros.dart';
+import 'package:sssales/vista/paginas/login.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -48,7 +48,7 @@ class _SplashState extends State<Splash> {
                           fontWeight: FontWeight.bold,
                         )),
                     Image.asset(
-                      'lib/imagenes/sssales_rojo_solo_logo_sin_fondo.png',
+                      'lib/vista/imagenes/sssales_rojo_solo_logo_sin_fondo.png',
                       height: 200,
                     ),
                     Text(
@@ -79,7 +79,7 @@ class _SplashState extends State<Splash> {
                           ),
                         ),
                         Image.asset(
-                          'lib/imagenes/M_V_Solutions_SAS_logo_sin_fondo.png',
+                          'lib/vista/imagenes/M_V_Solutions_SAS_logo_sin_fondo.png',
                           height: 50,
                         ),
                         SizedBox(
