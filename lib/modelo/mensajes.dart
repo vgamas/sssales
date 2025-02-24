@@ -9,12 +9,10 @@ class Mensaje {
   String _asunto;
   String _mensaje;
   Char _tipo; // emision / respuesta
-  late bool _estado; // leido o no
+  bool _estado = false; // leido o no
 
   Mensaje(this._id, this._usrOrigen, this._usrDestino, this._fechaHora,
-      this._esPromocional, this._asunto, this._mensaje, this._tipo) {
-    this._estado = false;
-  }
+      this._esPromocional, this._asunto, this._mensaje, this._tipo);
 
   // Getters
 

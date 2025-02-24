@@ -6,21 +6,13 @@ class Empresa {
   String _direccion;
   Uint16 _telefonoFijo;
   Uint16 _telefonoCelular;
-  Ciudad? _ciudad;
+  Uint16 _idCiudad;
   String _urlLogo;
   String _nombreTienda;
   bool _estado = true;
 
-  Empresa(
-      this._nombre,
-      this._direccion,
-      this._telefonoFijo,
-      this._telefonoCelular,
-      Uint16 idCiudad,
-      this._urlLogo,
-      this._nombreTienda) {
-    this._ciudad = buscarCiudadPorID(idCiudad);
-  }
+  Empresa(this._nombre, this._direccion, this._telefonoFijo,
+      this._telefonoCelular, this._idCiudad, this._urlLogo, this._nombreTienda);
 
   String getNombre() {
     return this._nombre;
@@ -38,8 +30,8 @@ class Empresa {
     return this._telefonoCelular;
   }
 
-  Ciudad? getCiudad() {
-    return this._ciudad;
+  Uint16 getCiudad() {
+    return this._idCiudad;
   }
 
   String getUrlLogo() {
@@ -70,8 +62,8 @@ class Empresa {
     this._telefonoCelular = telefono;
   }
 
-  void setCiudad(Ciudad ciudad) {
-    this._ciudad = ciudad;
+  void setCiudad(Uint16 ciudad) {
+    this._idCiudad = ciudad;
   }
 
   void setUrlLogo(String url) {

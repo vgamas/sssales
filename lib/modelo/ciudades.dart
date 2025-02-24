@@ -1,15 +1,12 @@
 import 'dart:ffi';
-import 'departamentos.dart';
 
 class Ciudad {
   Uint16 _id;
   String _nombre;
-  Departamento? _departamento;
+  Uint16 _idDepartamento;
   Uint16 _codigo;
 
-  Ciudad(this._id, this._nombre, Uint16 departamento, this._codigo) {
-    this._departamento = buscarDepartamentoPorId(departamento);
-  }
+  Ciudad(this._id, this._nombre, this._idDepartamento, this._codigo);
 
 // Getters
 
@@ -21,8 +18,8 @@ class Ciudad {
     return this._nombre;
   }
 
-  Departamento? getDepartamento() {
-    return this._departamento;
+  Uint16 getDepartamento() {
+    return this._idDepartamento;
   }
 
   Uint16 getCodigo() {
@@ -39,8 +36,8 @@ class Ciudad {
     this._nombre = nombre;
   }
 
-  void setDepartamento(Departamento dpto) {
-    this._departamento = dpto;
+  void setDepartamento(Uint16 dpto) {
+    this._idDepartamento = dpto;
   }
 
   void setCodigo(Uint16 codigo) {
@@ -62,7 +59,7 @@ Ciudad? buscarCiudadPorID(Uint16 id) {
 
 // Lista todas las ciudades que pertenecen a un departamento
 
-List<Ciudad>? buscarCiudadesPorDepartamento(Departamento dpto) {
+List<Ciudad>? buscarCiudadesPorDepartamento(Uint16 dpto) {
   // buscar las ciudades en la tabla por el id del departamento y crear la lista
 
   return null;

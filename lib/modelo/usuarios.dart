@@ -7,7 +7,7 @@ class Usuario {
   String _nombre;
   String _contrasena;
   Rol? _rol;
-  bool _estado = true;
+  bool _estado = true; // true = usuario activo, false = inactivo
 
   Usuario(
       this._id, this._usuario, this._nombre, this._contrasena, Uint16 idRol) {

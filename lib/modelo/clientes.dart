@@ -1,34 +1,30 @@
 import 'dart:ffi';
 
-import 'package:sssales/modelo/ciudades.dart';
-import 'package:sssales/modelo/tiposcliente.dart';
-import 'usuarios.dart';
-
-class Clientes {
+class Cliente {
   Uint16 _id;
   String _nombreCompleto;
   String _correoElectronico;
   Uint16 _celular;
   String _direccion;
-  Ciudad _Ciudad;
-  late bool _estado;
+  Uint16 _idCiudad;
+  bool _estado = true; // true = usuario activo - false = inactivo
   String _observaciones;
-  TipoCliente _tipoCliente;
+  Char _tipoCliente;
   String _facebook;
   String _instagram;
   String _whatsapp;
   String _tiktok;
   DateTime _fechaNacimiento;
-  Usuario _usuario;
+  Uint32 _idUsuario;
   String _urlImagen;
 
-  Clientes(
+  Cliente(
       this._id,
       this._nombreCompleto,
       this._correoElectronico,
       this._celular,
       this._direccion,
-      this._Ciudad,
+      this._idCiudad,
       this._observaciones,
       this._tipoCliente,
       this._facebook,
@@ -36,10 +32,8 @@ class Clientes {
       this._whatsapp,
       this._tiktok,
       this._fechaNacimiento,
-      this._usuario,
-      this._urlImagen) {
-    this._estado = true;
-  }
+      this._idUsuario,
+      this._urlImagen);
 
   // Getters
   Uint16 getId() {
@@ -62,8 +56,8 @@ class Clientes {
     return this._direccion;
   }
 
-  Ciudad getCiudad() {
-    return this._Ciudad;
+  Uint16 getCiudad() {
+    return this._idCiudad;
   }
 
   bool getEstado() {
@@ -74,7 +68,7 @@ class Clientes {
     return this._observaciones;
   }
 
-  TipoCliente getTipoCliente() {
+  Char getTipoCliente() {
     return this._tipoCliente;
   }
 
@@ -98,8 +92,8 @@ class Clientes {
     return this._fechaNacimiento;
   }
 
-  Usuario getUsuario() {
-    return this._usuario;
+  Uint32 getUsuario() {
+    return this._idUsuario;
   }
 
   String getImagen() {
@@ -127,8 +121,8 @@ class Clientes {
     this._direccion = direccion;
   }
 
-  void setCiudad(Ciudad ciudad) {
-    this._Ciudad = ciudad;
+  void setCiudad(Uint16 ciudad) {
+    this._idCiudad = ciudad;
   }
 
   void setEstado(bool estado) {
@@ -139,7 +133,7 @@ class Clientes {
     this._observaciones = observaciones;
   }
 
-  void setTipoCliente(TipoCliente tipoCliente) {
+  void setTipoCliente(Char tipoCliente) {
     this._tipoCliente = tipoCliente;
   }
 
@@ -163,8 +157,8 @@ class Clientes {
     this._fechaNacimiento = fechaNacimiento;
   }
 
-  void setUsuario(Usuario usuario) {
-    this._usuario = usuario;
+  void setUsuario(Uint32 usuario) {
+    this._idUsuario = usuario;
   }
 
   void setUrlImagen(String url) {
@@ -173,3 +167,39 @@ class Clientes {
 }
 
 // Metodos del CRUD
+
+Cliente? buscarClientePorId(Uint16 id) {
+  Cliente? cliente = null;
+
+  return cliente;
+}
+
+Cliente? buscarClientePorUsuario(Uint32 usuario) {
+  Cliente? cliente = null;
+
+  return cliente;
+}
+
+List<Cliente>? listarClientes() {
+  List<Cliente>? listaClientes = null;
+
+  return listaClientes;
+}
+
+List<Cliente>? listarClientesPorCiudad(Uint16 ciudad) {
+  List<Cliente>? listaClientes = null;
+
+  return listaClientes;
+}
+
+int actualizarCliente(Cliente cliente) {
+  int estado = 0;
+
+  return estado;
+}
+
+int eliminarCliente(Cliente cliente) {
+  cliente.setEstado(false);
+
+  return actualizarCliente(cliente);
+}
