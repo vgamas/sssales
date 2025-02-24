@@ -17,11 +17,11 @@ class _SplashState extends State<Splash> {
     super.initState();
 
     Timer(
-      Duration(seconds: 10),
+      const Duration(seconds: 10),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Login(),
+          builder: (context) => const  Login(),
         ),
       ),
     );
@@ -35,14 +35,14 @@ class _SplashState extends State<Splash> {
           alignment: Alignment.center,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 // define un contenedor del tamaño de la pantalla menos un espacio para colocar el pie de página
                 // En esta contenedor van los mensajes y logo de bienvenida centrados en la pantalla
                 height: MediaQuery.of(context).size.height - 65,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Bienvenido a',
+                    const Text('Bienvenido a',
                         style: TextStyle(
                           fontSize: Parametros.tamanoTitulo,
                           fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class _SplashState extends State<Splash> {
                     ),
                     Text(
                       Parametros.nombreTienda,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'YesevaOne',
@@ -72,7 +72,7 @@ class _SplashState extends State<Splash> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
+                        const Text(
                           'Tu tienda de ',
                           style: TextStyle(
                             fontSize: 10,
@@ -82,14 +82,14 @@ class _SplashState extends State<Splash> {
                           'lib/vista/imagenes/M_V_Solutions_SAS_logo_sin_fondo.png',
                           height: 50,
                         ),
-                        SizedBox(
+                       const  SizedBox(
                           width: 10,
                         )
                       ],
                     ),
                     Text(
                       Parametros.copyRight,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 8,
                       ),
                     ),

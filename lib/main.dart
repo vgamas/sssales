@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sssales/vista/paginas/productos.dart';
 import 'package:sssales/vista/paginas/splash.dart';
 import 'package:sssales/vista/paginas/parametros.dart';
+import 'package:sssales/vista/paginas/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         //fontFamily: 'YesevaOne',
         useMaterial3: true,
       ),
-      home: const Splash(),
+      home:  const HomeScreen(),
     );
   }
 }
