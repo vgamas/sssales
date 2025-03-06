@@ -1,72 +1,56 @@
-import 'dart:ffi';
-
 class Categoria {
-  Uint16 _id;
-  String _nombre;
-  String _descripcion;
-  Uint32 _color;
-  String _urlImagen;
+  int _id = 0;
+  String _nombre = "";
+  String _descripcion = "";
+  int _color = 0;
+  String _urlImagen = "";
   bool _estado = true; // true = activa - falte = inactiva
 
   Categoria(
-      this._id, this._nombre, this._descripcion, this._color, this._urlImagen);
+      {int id = 0,
+      String nombre = "",
+      String descripcion = "",
+      int color = 0,
+      String url = "",
+      bool estado = true}) {
+    this._id = id;
+    this._nombre = nombre;
+    this._descripcion = descripcion;
+    this._color = color;
+    this._urlImagen = url;
+    this._estado = estado;
+  }
 
   // Getters
 
-  Uint16 getId() {
-    return this._id;
-  }
-
-  String getNombre() {
-    return this._nombre;
-  }
-
-  String getDescripcion() {
-    return this._descripcion;
-  }
-
-  Uint32 getColor() {
-    return this._color;
-  }
-
-  String getUrlImagen() {
-    return this._urlImagen;
-  }
-
-  bool getEstado() {
-    return this._estado;
-  }
+  int get getId => this._id;
+  String get getNombre => this._nombre;
+  String get getDescripcion => this._descripcion;
+  int get getColor => this._color;
+  String get getUrlImagen => this._urlImagen;
+  bool get getEstado => this._estado;
 
   // Setters
 
-  void setId(Uint16 id) {
-    this._id = id;
-  }
-
-  void setNombre(String nombre) {
-    this._nombre = nombre;
-  }
-
-  void setDescripcion(String descripcion) {
-    this._descripcion = descripcion;
-  }
-
-  void setColor(Uint32 color) {
-    this._color = color;
-  }
-
-  void setUrlImagen(String url) {
-    this._urlImagen = url;
-  }
-
-  void setEstado(bool estado) {
-    this._estado = estado;
-  }
+  set setId(int id) => this._id = id;
+  set setNombre(String nombre) => this._nombre = nombre;
+  set setDescripcion(String descripcion) => this._descripcion = descripcion;
+  set setColor(int color) => this._color = color;
+  set setUrlImagen(String url) => this._urlImagen = url;
+  set setEstado(bool estado) => this._estado = estado;
 }
 
 // Metodos plara el CRUD
 
-Categoria? buscarCategoriaPorId(Uint16 id) {
+List<Categoria>? listarCategorias() {
+  List<Categoria>? listaCategorias = null;
+
+  // buscar categorias en la base de datos
+
+  return listaCategorias;
+}
+
+Categoria? buscarCategoriaPorId(int id) {
   Categoria? categoria = null;
 
   return categoria;
@@ -77,3 +61,5 @@ int agregarCategoria(Categoria categoria) {
 
   return estado;
 }
+
+// Las categorias no se eliminan

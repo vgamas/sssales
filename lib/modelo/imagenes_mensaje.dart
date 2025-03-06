@@ -1,52 +1,38 @@
-import 'dart:ffi';
+class ImagenMensaje {
+  int _id = 0;
+  int _idMensaje = 0;
+  String _urlImagen = "";
 
-class ImagenesMensaje {
-  Uint32 _id;
-  Uint32 _idMensaje;
-  String _urlImagen;
-
-  ImagenesMensaje(this._id, this._idMensaje, this._urlImagen);
+  ImagenMensaje({int id = 0, int idMensaje = 0, String urlImagen = ""}) {
+    this._id = id;
+    this._idMensaje = 0;
+    this._urlImagen = "";
+  }
 
   // Getters
 
-  Uint32 getId() {
-    return this._id;
-  }
-
-  Uint32 getIdMensaje() {
-    return this._idMensaje;
-  }
-
-  String getUrlImagen() {
-    return this._urlImagen;
-  }
+  int get getId => this._id;
+  int get getIdMensaje => this._idMensaje;
+  String get getUrlImagen => this._urlImagen;
 
   // Setters
 
-  void setId(Uint32 id) {
-    this._id = id;
-  }
-
-  void setIdMensaje(Uint32 idMensaje) {
-    this._idMensaje = idMensaje;
-  }
-
-  void setUrlImagen(String url) {
-    this._urlImagen = url;
-  }
+  set setId(int id) => this._id = id;
+  set setIdMensaje(int idMensaje) => this._idMensaje = idMensaje;
+  set setUrlImagen(String url) => this._urlImagen = url;
 }
 
 // Metodos del CRUD
 
-List<ImagenesMensaje>? listaImagenesDeMensaje(Uint32 idMensaje) {
-  List<ImagenesMensaje>? listaImagenes = null;
+List<ImagenMensaje>? listaImagenesDeMensaje(int idMensaje) {
+  List<ImagenMensaje>? listaImagenes = null;
 
   // busca la lista de las imagenes
 
   return listaImagenes;
 }
 
-int agregarImagenMensaje(ImagenesMensaje imagen) {
+int agregarImagenMensaje(ImagenMensaje imagen) {
   int estado = 0;
 
   return estado;

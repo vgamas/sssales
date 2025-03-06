@@ -1,31 +1,23 @@
-import 'dart:ffi';
-
 class Rol {
-  Uint16 _id;
-  String _nombre;
+  int _id = 0;
+  String _nombre = "";
 
-  Rol(this._id, this._nombre);
+  Rol({int id = 0, String nombre = ""}) {
+    this._id = id;
+    this._nombre = nombre;
+  }
 
   // Getters
 
-  Uint16 getId() {
-    return this._id;
-  }
-
-  String getNombre() {
-    return this._nombre;
-  }
+  int get getId => this._id;
+  String get getNombre => this._nombre;
 
   // Seters
 
-  void setId(Uint16 id) {
-    this._id = id;
-  }
-
-  void setNombre(String nombre) {
-    this._nombre = nombre;
-  }
+  set setId(int id) => this._id = id;
+  set setNombre(String nombre) => this._nombre = nombre;
 }
+
 // Metodos para el CRUD
 
 int actualizarRol(Rol nuevoRol) {
@@ -45,7 +37,7 @@ int actualizarRol(Rol nuevoRol) {
   return estado;
 }
 
-Rol? buscarRolPorId(Uint16 id) {
+Rol? buscarRolPorId(int id) {
   Rol? rol = null;
 
   // busca el rol y lo retorna si lo encuentra
@@ -54,7 +46,9 @@ Rol? buscarRolPorId(Uint16 id) {
 }
 
 List<Rol>? listarRoles() {
+  List<Rol>? roles = [];
+
   // busca la lista de roles
 
-  return null;
+  return roles;
 }

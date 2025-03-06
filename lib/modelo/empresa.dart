@@ -1,86 +1,59 @@
-import 'dart:ffi';
-import 'ciudades.dart';
-
 class Empresa {
-  String _nombre;
-  String _direccion;
-  Uint16 _telefonoFijo;
-  Uint16 _telefonoCelular;
-  Uint16 _idCiudad;
-  String _urlLogo;
-  String _nombreTienda;
+  String _nombre = "";
+  String _direccion = "";
+  int _telefonoFijo = 0;
+  int _telefonoCelular = 0;
+  int _idCiudad = 0;
+  String _urlLogo = "";
+  String _nombreTienda = "";
   bool _estado = true;
 
-  Empresa(this._nombre, this._direccion, this._telefonoFijo,
-      this._telefonoCelular, this._idCiudad, this._urlLogo, this._nombreTienda);
-
-  String getNombre() {
-    return this._nombre;
-  }
-
-  String getDireccion() {
-    return this._direccion;
-  }
-
-  Uint16 getTelefonoFijo() {
-    return this._telefonoFijo;
-  }
-
-  Uint16 getTelefonoCelular() {
-    return this._telefonoCelular;
-  }
-
-  Uint16 getCiudad() {
-    return this._idCiudad;
-  }
-
-  String getUrlLogo() {
-    return this._urlLogo;
-  }
-
-  String getNombreTienda() {
-    return this._nombreTienda;
-  }
-
-  bool getEstado() {
-    return this._estado;
-  }
-
-  void setNombre(String nombre) {
+  Empresa(
+      {String nombre = "",
+      String direccion = "",
+      int telefonoFijo = 0,
+      int telefonoCelular = 0,
+      int idCiudad = 0,
+      String url = "",
+      String nombreTienda = "",
+      bool estado = true}) {
     this._nombre = nombre;
-  }
-
-  void setDireccion(String direccion) {
     this._direccion = direccion;
-  }
-
-  void setTelefonoFijo(Uint16 telefono) {
-    this._telefonoFijo = telefono;
-  }
-
-  void setTelefonoCelular(Uint16 telefono) {
-    this._telefonoCelular = telefono;
-  }
-
-  void setCiudad(Uint16 ciudad) {
-    this._idCiudad = ciudad;
-  }
-
-  void setUrlLogo(String url) {
+    this._telefonoFijo = telefonoFijo;
+    this._telefonoCelular = telefonoCelular;
+    this._idCiudad = idCiudad;
     this._urlLogo = url;
-  }
-
-  void setNombreTienda(String nombre) {
-    this._nombreTienda = nombre;
-  }
-
-  void setEstado(bool estado) {
+    this._nombreTienda = nombreTienda;
     this._estado = estado;
   }
+
+// Getters
+
+  String get getNombre => this._nombre;
+  String get getDireccion => this._direccion;
+  int get getTelefonoFijo => this._telefonoFijo;
+  int get getTelefonoCelular => this._telefonoCelular;
+  int get getCiudad => this._idCiudad;
+  String get getUrlLogo => this._urlLogo;
+  String get getNombreTienda => this._nombreTienda;
+  bool get getEstado => this._estado;
+
+  // Setters
+
+  set setNombre(String nombre) => this._nombre = nombre;
+  set setDireccion(String direccion) => this._direccion = direccion;
+  set setTelefonoFijo(int telefono) => this._telefonoFijo = telefono;
+  set setTelefonoCelular(int telefono) => this._telefonoCelular = telefono;
+  set setCiudad(int idCiudad) => this._idCiudad = idCiudad;
+  set setUrlLogo(String url) => this._urlLogo = url;
+  set setNombreTienda(String nombre) => this._nombreTienda = nombre;
+  set setEstado(bool estado) => this._estado = estado;
 }
 
-Empresa? buscarEmpresa() {
-  Empresa? empresa = null;
+// Metodos del CRUD
+
+Empresa buscarEmpresa() {
+  Empresa empresa = Empresa();
   // consume la api o busca en la bd.
 
   return empresa;
@@ -90,7 +63,7 @@ int actualizarEmpresa(Empresa nuevaEmpresa) {
   int estado = 0;
   Empresa? empresa = buscarEmpresa();
 
-  if (empresa != null) {
+  if (empresa.getNombre.isNotEmpty) {
     // actualiza la empresa
     // Si actualiza deja estado en 0
     // Sino, coloca algun codigo de error

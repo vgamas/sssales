@@ -1,46 +1,32 @@
-import 'dart:ffi';
-
 class Departamento {
-  Uint16 _id;
-  String _nombre;
-  Uint16 _codigo;
+  int _id = 0;
+  String _nombre = "";
+  int _codigo = 0;
 
-  Departamento(this._id, this._nombre, this._codigo);
+  Departamento({int id = 0, String nombre = "", int codigo = 0}) {
+    this._id = id;
+    this._nombre = nombre;
+    this._codigo = codigo;
+  }
 
 // Getters
 
-  Uint16 getId() {
-    return this._id;
-  }
-
-  String getNombre() {
-    return this._nombre;
-  }
-
-  Uint16 getCodigo() {
-    return this._codigo;
-  }
+  int get getId => this._id;
+  String get getNombre => this._nombre;
+  int getCodigo() => this._codigo;
 
 // Setters
 
-  void setId(Uint16 id) {
-    this._id = id;
-  }
-
-  void setNombre(String nombre) {
-    this._nombre = nombre;
-  }
-
-  void setCodigo(Uint16 codigo) {
-    this._codigo = codigo;
-  }
+  set setId(int id) => this._id = id;
+  set setNombre(String nombre) => this._nombre = nombre;
+  set setCodigo(int codigo) => this._codigo = codigo;
 }
 
 // Metodos para el CRUD
 
 // Busca un departamento por su id
 
-Departamento? buscarDepartamentoPorId(Uint16 id) {
+Departamento? buscarDepartamentoPorId(int id) {
   Departamento? departamento = null;
 
   // busca en la base de datos para encontrar el departamento
@@ -50,7 +36,7 @@ Departamento? buscarDepartamentoPorId(Uint16 id) {
 
 // Busca un departamento por su codigo
 
-Departamento? buscarDepartamentoPorCodigo(Uint16 id) {
+Departamento? buscarDepartamentoPorCodigo(int id) {
   Departamento? departamento = null;
 
   // busca en la base de datos para encontrar el departamento
@@ -71,7 +57,7 @@ List<Departamento>? listaDepartamentos() {
 
 int actualizarDepartamento(Departamento nuevoDpto) {
   int estado = 0;
-  Departamento? departamento = buscarDepartamentoPorId(nuevoDpto.getId());
+  Departamento? departamento = buscarDepartamentoPorId(nuevoDpto.getId);
 
   if (departamento != null) {
     // actualiza el departamento

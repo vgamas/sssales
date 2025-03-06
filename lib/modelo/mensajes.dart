@@ -1,99 +1,64 @@
-import 'dart:ffi';
-
 class Mensaje {
-  Uint32 _id;
-  Uint32 _usrOrigen;
-  Uint32 _usrDestino;
-  DateTime _fechaHora;
-  bool _esPromocional;
-  String _asunto;
-  String _mensaje;
-  Char _tipo; // emision / respuesta
+  int _id = 0;
+  int _usrOrigen = 0;
+  int _usrDestino = 0;
+  DateTime _fechaHora = DateTime.now();
+  bool _esPromocional =
+      false; // true es un mensaje de promocion enviado por el administrados, si es mensaje de un chat es false
+  String _asunto = "";
+  String _mensaje = "";
+  String _tipo = "N"; // nueva conversacion (N) / respuesta (R)
   bool _estado = false; // leido o no
 
-  Mensaje(this._id, this._usrOrigen, this._usrDestino, this._fechaHora,
-      this._esPromocional, this._asunto, this._mensaje, this._tipo);
+  Mensaje(
+      {int id = 0,
+      int usuarioOrigen = 0,
+      int usuarioDestino = 0,
+      DateTime? fechaHora,
+      bool promocional = false,
+      String asunto = "",
+      String mensaje = "",
+      String tipo = "N",
+      bool estado = false}) {
+    this._id = id;
+    this._usrOrigen = usuarioOrigen;
+    this._usrDestino = usuarioDestino;
+    this._fechaHora = fechaHora ?? DateTime.now();
+    this._esPromocional = promocional;
+    this._asunto = asunto;
+    this._mensaje = mensaje;
+    this._tipo = tipo;
+    this._estado = estado;
+  }
 
   // Getters
 
-  Uint32 getId() {
-    return this._id;
-  }
-
-  Uint32 getUsuarioOrigen() {
-    return this._usrOrigen;
-  }
-
-  Uint32 getUsuarioDestino() {
-    return this._usrDestino;
-  }
-
-  DateTime getFecha() {
-    return this._fechaHora;
-  }
-
-  bool getPromocional() {
-    return this._esPromocional;
-  }
-
-  String getAsunto() {
-    return this._asunto;
-  }
-
-  String getMensaje() {
-    return this._mensaje;
-  }
-
-  Char getTipo() {
-    return this._tipo;
-  }
-
-  bool getEstado() {
-    return this._estado;
-  }
+  int get getId => this._id;
+  int get getUsuarioOrigen => this._usrOrigen;
+  int get getUsuarioDestino => this._usrDestino;
+  DateTime get getFecha => this._fechaHora;
+  bool get getPromocional => this._esPromocional;
+  String get getAsunto => this._asunto;
+  String get getMensaje => this._mensaje;
+  String get getTipo => this._tipo;
+  bool get getEstado => this._estado;
 
   // Setters
 
-  void setId(Uint32 id) {
-    this._id = id;
-  }
-
-  void setUsuarioOrigen(Uint32 usuario) {
-    this._usrOrigen = usuario;
-  }
-
-  void setUsuarioDestino(Uint32 usuario) {
-    this._usrDestino = usuario;
-  }
-
-  void setFecha(DateTime fecha) {
-    this._fechaHora = fecha;
-  }
-
-  void setPromocional(bool promocional) {
-    this._esPromocional = promocional;
-  }
-
-  void setAsunto(String asunto) {
-    this._asunto = asunto;
-  }
-
-  void setMensaje(String mensaje) {
-    this._mensaje = mensaje;
-  }
-
-  void setTipo(Char tipo) {
-    this._tipo = tipo;
-  }
-
-  void setEstado(bool estado) {
-    this._estado = estado;
-  }
+  set setId(int id) => this._id = id;
+  set setUsuarioOrigen(int usuario) => this._usrOrigen = usuario;
+  set setUsuarioDestino(int usuario) => this._usrDestino = usuario;
+  set setFecha(DateTime fecha) => this._fechaHora = fecha;
+  set setPromocional(bool promocional) => this._esPromocional = promocional;
+  set setAsunto(String asunto) => this._asunto = asunto;
+  set setMensaje(String mensaje) => this._mensaje = mensaje;
+  set setTipo(String tipo) => this._tipo = tipo;
+  set setEstado(bool estado) => this._estado = estado;
 }
 
 // Metodos del CRUD
 
-List<Mensaje>? buscarMensajePorUsuario(Uint32 usuario) {
+List<Mensaje>? buscarMensajePorUsuario(int usuario) {
   List<Mensaje>? mensaje = null;
 
   // busca los mensajes de ese usuario en una fecha determinada
@@ -101,7 +66,7 @@ List<Mensaje>? buscarMensajePorUsuario(Uint32 usuario) {
   return mensaje;
 }
 
-List<Mensaje>? buscarMensajePorFecha(Uint32 usuario, DateTime fecha) {
+List<Mensaje>? buscarMensajePorFecha(int usuario, DateTime fecha) {
   List<Mensaje>? mensaje = null;
 
   // busca los mensajes de ese usuario en una fecha determinada
@@ -109,7 +74,16 @@ List<Mensaje>? buscarMensajePorFecha(Uint32 usuario, DateTime fecha) {
   return mensaje;
 }
 
-List<Mensaje>? buscarMensajePorAsunto(Uint32 usuario, String asunto) {
+List<Mensaje>? buscarMensajesEntreFechas(
+    int usuario, DateTime fechaInicial, DateTime fechaFinal) {
+  List<Mensaje>? mensaje = null;
+
+  // busca los mensajes de ese usuario en una fecha determinada
+
+  return mensaje;
+}
+
+List<Mensaje>? buscarMensajePorAsunto(int usuario, String asunto) {
   List<Mensaje>? mensaje = null;
 
   // busca los mensajes de ese usuario en una fecha determinada
@@ -127,7 +101,7 @@ int agregarMensaje(Mensaje mensaje) {
 
 // los mensajes no se pueden eliminar
 
-int marcarMensajeLeido(Uint32 idMensaje) {
+int marcarMensajeLeido(int idMensaje) {
   int estado = 0;
 
   // busca el mensaje y le actualiza el estado
