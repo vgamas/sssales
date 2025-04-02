@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "200336231037",
+    "project_id": "sssales-e6285",
+    "storage_bucket": "sssales-e6285.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200336231037:android:6f8add4d3bd4c3bfd6bf14",
+        "android_client_info": {
+          "package_name": "com.example.sssales"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtG83s1WKGiV0-NrHnjx7gv8uFJUW1VOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

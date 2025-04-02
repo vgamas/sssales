@@ -9,7 +9,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null, //AppBar(),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Center(
@@ -18,40 +18,27 @@ class Login extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "¡Bienvenido a SSsales!",
                   style: TextStyle(
                       fontSize: Parametros.tamanoTitulo,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Container(
-                  margin: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         colors: <Color>[Colors.yellow, Colors.orange]),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Container(
-                    margin: EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Container(
-                          height: Parametros.altoCampoLectura,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Nombres y Apellidos',
-                              prefixIcon: Icon(Icons.person_outline_outlined),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -59,7 +46,7 @@ class Login extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: TextField(
+                          child: const TextField(
                             decoration: InputDecoration(
                               labelText: 'Correo electrónico',
                               prefixIcon: Icon(Icons.mail_outline),
@@ -67,7 +54,7 @@ class Login extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -75,7 +62,7 @@ class Login extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: TextField(
+                          child: const TextField(
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: 'Contraseña',
@@ -84,7 +71,7 @@ class Login extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Container(
@@ -100,10 +87,10 @@ class Login extends StatelessWidget {
                               // Aqui se debe validar y si el usuario ingresa correctamente, actualizar el archivo del usuario que ya esta logueado para poder hacer las compras
                               // de lo contrario sacar un mensaje de error...
                             },
-                            child: Text('INGRESAR'),
+                            child: const Text('INGRESAR'),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextButton(
@@ -113,7 +100,7 @@ class Login extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => const Registro()));
                           },
-                          child: Text(
+                          child: const Text(
                             'No tiene una cuenta?  Regístrese',
                             textAlign: TextAlign.center,
                             style: TextStyle(
