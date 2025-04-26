@@ -56,7 +56,7 @@ List<Ciudad> ciudadesFromJson(String str) =>
 String ciudadesToJson(List<Ciudad> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-// Manejo de un solo elemento de departamentos ,-> json
+// Manejo de un solo elemento de roles -> json
 
 Ciudad ciudadFromJson(String str) => Ciudad.fromJson(json.decode(str));
 

@@ -2,107 +2,113 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'conexion.dart';
-import '../modelo/ciudades.dart';
+import '../modelo/roles.dart';
 
-class CiudadesServicio {
-  final String _prefijo = "ciudades/";
+class RolesServicio {
+  final String _prefijo = "roles/";
 
-  // Buscar una ciudad por su id
+  // Cargar la lista de roles
 
-  Future<Ciudad> buscarCiudadPorId(int id) async {
+  Future<List<Rol>> listarTodos() async {
+    final String endPoint = "listar";
+    var uri = Uri.parse(url + _prefijo + endPoint);
+    var response = await http.get(uri);
+
+    if (response.statusCode == HttpStatus.ok) {
+      return rolesFromJson(response.body);
+    } else {
+      if (response.statusCode == HttpStatus.notFound) {
+        throw ("No hay roles registrados");
+      } else {
+        throw ("Error desconocido, codigo ${response.statusCode}");
+      }
+    }
+  }
+
+  // Buscar un rol por su ID
+
+  Future<Rol> buscarPorId(int id) async {
     final String endPoint = "id/${id}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
-      return ciudadFromJson(response.body);
+      return rolFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay ciudad con ese id ${id}");
+        throw ("No hay roles registrados con ese id: ${id}");
       } else {
         throw ("Error desconocido, codigo ${response.statusCode}");
       }
     }
   }
 
-// Lista todas las ciudades que pertenecen a un departamento
+  // Buscar un rol por su nombre
 
-  Future<List<Ciudad>> buscarCiudadesPorDepartamento(int dpto) async {
-    final String endPoint = "dpto/${dpto}";
+  Future<Rol> buscarPorNombre(String nombre) async {
+    final String endPoint = "nombre/${nombre}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
-      return ciudadesFromJson(response.body);
+      return rolFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay ciudades con ese codigo de departamento: ${dpto}");
+        throw ("No hay roles registrados con ese nombre: ${nombre}");
       } else {
         throw ("Error desconocido, codigo ${response.statusCode}");
       }
     }
   }
 
-// Lista todas las ciudades que pertenecen a un departamento y que cumplen con un nombre
+  // Agregar un nuevo rol
 
-  Future<List<Ciudad>> buscarCiudadesPorNombre(int dpto, String nombre) async {
-    final String endPoint = "nombre/?dpto=${dpto}&ciudad=${nombre}";
-    var uri = Uri.parse(url + _prefijo + endPoint);
-    var response = await http.get(uri
-    );
-
-    if (response.statusCode == HttpStatus.ok) {
-      return ciudadesFromJson(response.body);
-    } else {
-      if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay ciudades con ese codigo de departamento: ${dpto}");
-      } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
-      }
-    }
-  }
-
-// Agregar una ciudad a un departamento
-
-  Future<Ciudad> agregar(Ciudad nuevaCiudad) async {
+  Future<Rol> agregar(Rol rol) async {
     final String endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
-      headers: <String, String>{
+          headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: ciudadToJson(nuevaCiudad));
+        body: rolToJson(rol)
+);
 
     if (response.statusCode == HttpStatus.created) {
-      return ciudadFromJson(response.body);
+      return rolFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Ya hay una ciudad creada con ese codigo: ${nuevaCiudad.getCodigo}");
+        throw ("Ya hay un rol registrado con ese nombre: ${rol.getNombre}");
       } else {
         throw ("Error desconocido, codigo ${response.statusCode}");
       }
     }
   }
 
-// Actualizar una ciudad
+  // Agregar un nuevo rol
 
-  Future<Ciudad> actualizar(Ciudad nuevaCiudad) async {
+  Future<Rol> actualizar(Rol rol) async {
     final String endPoint = "actualizar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri,
-      headers: <String, String>{
+          headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: ciudadToJson(nuevaCiudad));
+        body: rolToJson(rol)
+);
 
     if (response.statusCode == HttpStatus.ok) {
-      return ciudadFromJson(response.body);
+      return rolFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Ya hay una ciudad creada con ese codigo: ${nuevaCiudad.getCodigo}");
+        throw ("Ya hay un rol registrado con ese nombre: ${rol.getNombre}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        if (response.statusCode == HttpStatus.notFound) {
+          throw ("No se encuentra un rol con ese id: ${rol.getId}");
+        } else {
+          throw ("Error desconocido, codigo ${response.statusCode}");
+        }
       }
     }
   }
+
 }

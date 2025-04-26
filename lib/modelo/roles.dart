@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Rol {
   int _id = 0;
   String _nombre = "";
@@ -14,41 +16,28 @@ class Rol {
 
   // Seters
 
-  set setId(int id) => this._id = id;
-  set setNombre(String nombre) => this._nombre = nombre;
+  void setId(int id) => this._id = id;
+  void setNombre(String nombre) => this._nombre = nombre;
+
+  factory Rol.fromJson(Map<String, dynamic> json) => Rol(
+        id: json["id"],
+        nombre: json["nombre"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": _id,
+        "nombre": _nombre,
+    };
 }
 
-// Metodos para el CRUD
+// Metodos para cambiar de rol a json y viceversa
 
-int actualizarRol(Rol nuevoRol) {
-  int estado = 0;
-  Rol? rol = buscarRolPorId(nuevoRol._id);
+Rol rolFromJson(String str) => Rol.fromJson(json.decode(str));
 
-  if (rol != null) {
-    // actualiza el rol
-    // Si actualiza deja estado en 0
-    // Sino, coloca algun codigo de error
-  } else {
-    // Crea el rol
-    // Si se crea la empresa correcto deja estado en 0
-    // Sino, coloca algun codigo de error
-  }
+String rolToJson(Rol data) => json.encode(data.toJson());
 
-  return estado;
-}
+// Manejo de lista de roles <-> json
 
-Rol? buscarRolPorId(int id) {
-  Rol? rol = null;
+List<Rol> rolesFromJson(String str) => List<Rol>.from(json.decode(str).map((x) => Rol.fromJson(x)));
 
-  // busca el rol y lo retorna si lo encuentra
-
-  return rol;
-}
-
-List<Rol>? listarRoles() {
-  List<Rol>? roles = [];
-
-  // busca la lista de roles
-
-  return roles;
-}
+String rolesToJson(List<Rol> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
