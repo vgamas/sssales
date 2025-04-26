@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Departamento {
   int _id = 0;
   String _nombre = "";
@@ -13,63 +15,32 @@ class Departamento {
 
   int get getId => this._id;
   String get getNombre => this._nombre;
-  int getCodigo() => this._codigo;
+  int get getCodigo => this._codigo;
 
 // Setters
 
-  set setId(int id) => this._id = id;
-  set setNombre(String nombre) => this._nombre = nombre;
-  set setCodigo(int codigo) => this._codigo = codigo;
+  void setId(int id) => this._id = id;
+  void setNombre(String nombre) => this._nombre = nombre;
+  void setCodigo(int codigo) => this._codigo = codigo;
+
+  factory Departamento.fromJson(Map<String, dynamic> json) => Departamento(
+      id: json["id"], nombre: json["nombre"], codigo: json["codigo"]);
+
+  Map<String, dynamic> toJson() =>
+      {"id": _id, "nombre": _nombre, "codigo": _codigo};
 }
 
-// Metodos para el CRUD
+// Manejo de listas de departamentos <-> json
 
-// Busca un departamento por su id
+List<Departamento> departamentoFromJson(String str) => List<Departamento>.from(
+    json.decode(str).map((x) => Departamento.fromJson(x)));
 
-Departamento? buscarDepartamentoPorId(int id) {
-  Departamento? departamento = null;
+String departamentoToJson(List<Departamento> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-  // busca en la base de datos para encontrar el departamento
+// Manejo de un solo elemento de departamentos ,-> json
 
-  return departamento;
-}
+Departamento dptoFromJson(String str) =>
+    Departamento.fromJson(json.decode(str));
 
-// Busca un departamento por su codigo
-
-Departamento? buscarDepartamentoPorCodigo(int id) {
-  Departamento? departamento = null;
-
-  // busca en la base de datos para encontrar el departamento
-
-  return departamento;
-}
-
-// Trae la lista de todos los departamentos que se encuentran en la base
-
-List<Departamento>? listaDepartamentos() {
-  // buscar en la base de datos la lista de departamentos y crear la lista
-  // Consumir la api...
-
-  return null;
-}
-
-// Actualiza o crea un departamento
-
-int actualizarDepartamento(Departamento nuevoDpto) {
-  int estado = 0;
-  Departamento? departamento = buscarDepartamentoPorId(nuevoDpto.getId);
-
-  if (departamento != null) {
-    // actualiza el departamento
-    // Si actualiza deja estado en 0
-    // Sino, coloca algun codigo de error
-  } else {
-    // Crea la empresa
-    // Si se crea la empresa correcto deja estado en 0
-    // Sino, coloca algun codigo de error
-  }
-
-  return estado;
-}
-
-// Eliminar departamento
+String dptoToJson(Departamento data) => json.encode(data.toJson());

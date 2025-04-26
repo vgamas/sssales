@@ -1,10 +1,12 @@
 class Carrito {
+  int _id = 0;
   int _idCliente = 0;
   int _idProducto = 0;
   int _cantidad = 0;
   double _precioUnitario = 0;
   double _ivaUnitario = 0;
-  DateTime _fechaReserva = DateTime.now();
+  DateTime _fechaReserva = DateTime
+      .now(); // Pilas para convertir en string la fecha en formato AAAA-MM-DD
 
   Carrito(
       {int cliente = 0,
@@ -13,6 +15,7 @@ class Carrito {
       double precioUnitario = 0,
       double iva = 0,
       DateTime? fechaReserva}) {
+    this._id = 0;
     this._idCliente = cliente;
     this._idProducto = producto;
     this._cantidad = cantidad;
@@ -23,6 +26,7 @@ class Carrito {
 
   // Getters
 
+  int get getId => this._id;
   int get getCliente => this._idCliente;
   int get getProducto => this._idProducto;
   int get getCantidad => this._cantidad;
@@ -32,6 +36,7 @@ class Carrito {
 
   // Setters
 
+  set setId(int id) => this._id = id;
   set setCliente(int cliente) => this._idCliente = cliente;
   set setProducto(int producto) => this._idProducto = producto;
   set setCantidad(int cantidad) => this._cantidad = cantidad;

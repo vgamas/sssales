@@ -1,13 +1,16 @@
+import 'dart:convert';
+import 'departamentos.dart';
+
 class Ciudad {
   int _id = 0;
   String _nombre = "";
-  int _idDepartamento = 0;
+  Departamento? _idDepartamento = null;
   int _codigo = 0;
 
   Ciudad(
       {int id = 0,
       String nombre = "",
-      int idDepartamento = 0,
+      Departamento? idDepartamento = null,
       int codigo = 0}) {
     this._id = id;
     this._nombre = nombre;
@@ -19,66 +22,42 @@ class Ciudad {
 
   int get getId => this._id;
   String get getNombre => this._nombre;
-  int get getDepartamento => this._idDepartamento;
+  Departamento? get getDepartamento => this._idDepartamento;
   int get getCodigo => this._codigo;
 
 // Setters
 
-  set setId(int id) => this._id = id;
-  set setNombre(String nombre) => this._nombre = nombre;
-  set setDepartamento(int dpto) => this._idDepartamento = dpto;
-  set setCodigo(int codigo) => this._codigo = codigo;
+  void setId(int id) => this._id = id;
+  void setNombre(String nombre) => this._nombre = nombre;
+  void setDepartamento(Departamento dpto) => this._idDepartamento = dpto;
+  void setCodigo(int codigo) => this._codigo = codigo;
+
+  factory Ciudad.fromJson(Map<String, dynamic> json) => Ciudad(
+      id: json["id"],
+      nombre: json["nombre"],
+      idDepartamento: json["idDepartamento"] == null
+          ? null
+          : Departamento.fromJson(json["idDepartamento"]),
+      codigo: json["codigo"]);
+
+  Map<String, dynamic> toJson() => {
+        "id": _id,
+        "nombre": _nombre,
+        "idDepartamento": _idDepartamento?.toJson(),
+        "codigo": _codigo
+      };
 }
 
-// Metodos para el CRUD
+// Manejo de listas de departamentos <-> json
 
-Ciudad buscarCiudadPorID(int id) {
-  Ciudad nuevaCiudad = Ciudad();
+List<Ciudad> ciudadesFromJson(String str) =>
+    List<Ciudad>.from(json.decode(str).map((x) => Ciudad.fromJson(x)));
 
-  // busca la ciudad en la tabla de cudades
+String ciudadesToJson(List<Ciudad> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-  // busca el departamento
+// Manejo de un solo elemento de departamentos ,-> json
 
-  return nuevaCiudad;
-}
+Ciudad ciudadFromJson(String str) => Ciudad.fromJson(json.decode(str));
 
-List<Ciudad>? listarCiudades() {
-  List<Ciudad>? listaCiudades = null;
-  // buscar las ciudades en la tabla por el id del departamento y crear la lista
-
-  return listaCiudades;
-}
-
-// Lista todas las ciudades que pertenecen a un departamento
-
-List<Ciudad>? buscarCiudadesPorDepartamento(int dpto) {
-  List<Ciudad>? listaCiudades = null;
-  // buscar las ciudades en la tabla por el id del departamento y crear la lista
-
-  return listaCiudades;
-}
-
-// Actualiza o crea una ciudad
-
-int actualizarCiudad(Ciudad nuevaCiudad) {
-  int estado = 0;
-  Ciudad ciudad = Ciudad();
-
-  if (nuevaCiudad.getId != 0) {
-    ciudad = buscarCiudadPorID(nuevaCiudad.getId);
-  }
-
-  if (ciudad.getId != 0) {
-    // actualiza la ciudad
-    // Si actualiza deja estado en 0
-    // Sino, coloca algun codigo de error
-  } else {
-    // Crea la ciudad
-    // Si se crea correcto deja estado en 0
-    // Sino, coloca algun codigo de error
-  }
-
-  return estado;
-}
-
-// Eliminar Ciudad
+String ciudadToJson(Ciudad data) => json.encode(data.toJson());
