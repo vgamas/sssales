@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MedioPago {
   int _id = 0;
   String _nombre = "";
@@ -28,34 +30,38 @@ class MedioPago {
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setNombre(String nombre) => this._nombre = nombre;
-  set setConexion(String conexion) => this._conexion = conexion;
-  set setEstado(bool estado) => this._estado = estado;
-  set setInstruciones(String instrucciones) =>
+  void setId(int id) => this._id = id;
+  void setNombre(String nombre) => this._nombre = nombre;
+  void setConexion(String conexion) => this._conexion = conexion;
+  void setEstado(bool estado) => this._estado = estado;
+  void setInstruciones(String instrucciones) =>
       this._instrucciones = instrucciones;
+
+  factory MedioPago.fromJson(Map<String, dynamic> json) => MedioPago(
+        id: json["id"],
+        nombre: json["nombre"],
+        conexion: json["conexion"],
+        estado: json["estado"],
+        instrucciones: json["instrucciones"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": _id,
+        "nombre": _nombre,
+        "conexion": _conexion,
+        "estado": _estado,
+        "instrucciones": _instrucciones,
+    };
 }
 
-// Metodos del CRUD
+// Maneja las listas de medios de pago para convertirlas <-> json
 
-MedioPago? buscarMedioPagoPorId(int id) {
-  MedioPago? medioPago = null;
+List<MedioPago> mediosPagoFromJson(String str) => List<MedioPago>.from(json.decode(str).map((x) => MedioPago.fromJson(x)));
 
-  // busca en la base el medio de pago
+String mediosPagoToJson(List<MedioPago> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-  return medioPago;
-}
+// Maneja los elementos de mendios de pago para convertir <-> json
 
-List<MedioPago>? listarMediosPago() {
-  List<MedioPago>? listaMediosPago = [];
+MedioPago medioPagoFromJson(String str) => MedioPago.fromJson(json.decode(str));
 
-  // buscar la lista en la base y cargarla
-
-  return listaMediosPago;
-}
-
-int modificarMedioPago(MedioPago nuevoMedioPago) {
-  int estado = 0;
-
-  return estado;
-}
+String medioPagoToJson(MedioPago data) => json.encode(data.toJson());

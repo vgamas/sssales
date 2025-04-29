@@ -71,7 +71,8 @@ class CiudadesServicio {
       headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: ciudadToJson(nuevaCiudad));
+        body: ciudadToJson(nuevaCiudad)
+      );
 
     if (response.statusCode == HttpStatus.created) {
       return ciudadFromJson(response.body);

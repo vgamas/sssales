@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 class TipoCliente {
-  int _id = 0;
+  String _id = "";
   String _nombre = "";
   String _descripcion = "";
 
-  TipoCliente({int id = 0, String nombre = "", String descripcion = ""}) {
+  TipoCliente({String id = "", String nombre = "", String descripcion = ""}) {
     this._id = id;
     this._nombre = nombre;
     this._descripcion = descripcion;
@@ -11,49 +13,37 @@ class TipoCliente {
 
   // Getters
 
-  int get getId => this._id;
+  String get getId => this._id;
   String get getNombre => this._nombre;
   String get getDescripcion => this._descripcion;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setNombre(String nombre) => this._nombre = nombre;
-  set setDescripcion(String descripcion) => this._descripcion = descripcion;
+  void setId(String id) => this._id = id;
+  void setNombre(String nombre) => this._nombre = nombre;
+  void setDescripcion(String descripcion) => this._descripcion = descripcion;
+
+  factory TipoCliente.fromJson(Map<String, dynamic> json) => TipoCliente(
+    id: json["id"],
+    nombre: json["nombre"],
+    descripcion: json["descripcion"],
+  );
+
+  Map<String, dynamic> toJson() => {
+      "id": _id,
+      "nombre": _nombre,
+      "descripcion": _descripcion,
+  };
 }
 
-// metodos del CRUD
+// Conversion de elemenentos TipoCliente <-> json
 
-TipoCliente buscarTipoClientePorId(int id) {
-  TipoCliente tipoCliente = TipoCliente();
+TipoCliente tipoClienteFromJson(String str) => TipoCliente.fromJson(json.decode(str));
 
-  // busca el tipo de cliente
+String tipoClienteToJson(TipoCliente data) => json.encode(data.toJson());
 
-  return tipoCliente;
-}
+// Conversion de listas de elemenentos TipoCliente <-> json
 
-TipoCliente buscarTipoClientePorNombre(String nombre) {
-  TipoCliente tipoCliente = TipoCliente();
+List<TipoCliente> tiposClienteFromJson(String str) => List<TipoCliente>.from(json.decode(str).map((x) => TipoCliente.fromJson(x)));
 
-  // buscar en la base por el nombre del cliente
-
-  return tipoCliente;
-}
-
-List<TipoCliente>? listarTipoCliente() {
-  List<TipoCliente>? listaTipoCliente = [];
-
-  return listaTipoCliente;
-}
-
-// agrega o actualiza un tipo de cliente
-
-int agregarTipoCliente(TipoCliente tipoCliente) {
-  int estado = 0;
-
-  // agregar a la base, si hay no hay error retorna el estado en 0
-
-  return estado;
-}
-
-// los tipos de cliente no se eliminan
+String tiposClienteToJson(List<TipoCliente> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

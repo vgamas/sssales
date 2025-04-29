@@ -2,113 +2,112 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'conexion.dart';
-import '../modelo/roles.dart';
+import '../modelo/medios_pago.dart';
 
-class RolesServicio {
-  final String _prefijo = "roles/";
+class MediosPagoServicio {
+  final String _prefijo = "medios/";
 
-  // Cargar la lista de roles
+  // Listar todos los medios de pago
 
-  Future<List<Rol>> listarTodos() async {
+  Future<List<MedioPago>> listarTodos() async {
     final String endPoint = "listar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
-      return rolesFromJson(response.body);
+      return mediosPagoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay roles registrados");
+        throw("No hay medios de pago creados");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        throw("Error desconocido, codigo ${response.statusCode}");
       }
     }
   }
+  
+  // Busca un medio de pago por su id
 
-  // Buscar un rol por su ID
-
-  Future<Rol> buscarPorId(int id) async {
+  Future<MedioPago> buscarPorId(int id) async {
     final String endPoint = "id/${id}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
-      return rolFromJson(response.body);
+      return medioPagoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay roles registrados con ese id: ${id}");
+        throw("No hay medios de pago creados con ese id ${id}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        throw("Error desconocido, codigo ${response.statusCode}");
       }
     }
   }
 
-  // Buscar un rol por su nombre
-
-  Future<Rol> buscarPorNombre(String nombre) async {
+  // Busca un medio de pago por su nombre
+  
+  Future<MedioPago> buscarPorNombre(String nombre) async {
     final String endPoint = "nombre/${nombre}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
 
     if (response.statusCode == HttpStatus.ok) {
-      return rolFromJson(response.body);
+      return medioPagoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay roles registrados con ese nombre: ${nombre}");
+        throw("No hay medios de pago creados con ese nombre ${nombre}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        throw("Error desconocido, codigo ${response.statusCode}");
       }
     }
   }
 
-  // Agregar un nuevo rol
-
-  Future<Rol> agregar(Rol rol) async {
+  // Agregar un nuevo medio de pago
+  
+  Future<MedioPago> agregar(MedioPago nuevoMedio) async {
     final String endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
-          headers: <String, String>{
+      headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: rolToJson(rol)
+        body: medioPagoToJson(nuevoMedio)
     );
 
     if (response.statusCode == HttpStatus.created) {
-      return rolFromJson(response.body);
+      return medioPagoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Ya hay un rol registrado con ese nombre: ${rol.getNombre}");
+        throw("Ya hay un medio de pago creado con ese nombre ${nuevoMedio.getNombre}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        throw("Error desconocido, codigo ${response.statusCode}");
       }
     }
   }
 
-  // Agregar un nuevo rol
-
-  Future<Rol> actualizar(Rol rol) async {
+  // Actualizar un medio de pago
+  
+  Future<MedioPago> actualizar(MedioPago nuevoMedio) async {
     final String endPoint = "actualizar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri,
-          headers: <String, String>{
+      headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: rolToJson(rol)
-);
+        body: medioPagoToJson(nuevoMedio)
+    );
 
     if (response.statusCode == HttpStatus.ok) {
-      return rolFromJson(response.body);
+      return medioPagoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Ya hay un rol registrado con ese nombre: ${rol.getNombre}");
+        throw("Ya hay un medio de pago creado con ese nombre ${nuevoMedio.getNombre}");
       } else {
         if (response.statusCode == HttpStatus.notFound) {
-          throw ("No se encuentra un rol con ese id: ${rol.getId}");
+          throw("No hay un medio de pago con ese id: ${nuevoMedio.getId}");
         } else {
-          throw ("Error desconocido, codigo ${response.statusCode}");
+          throw("Error desconocido, codigo ${response.statusCode}");
         }
       }
-    }
+    } 
   }
-
 }
