@@ -1,21 +1,23 @@
+import 'dart:convert';
+
 class Proveedor {
   int _id = 0;
   String _nombre = "";
   String _contacto = "";
-  int _telefono1 = 0;
-  int _telefono2 = 0;
+  int _telefono = 0;
+  int _celular = 0;
 
   Proveedor(
       {int id = 0,
       String nombre = "",
       String contacto = "",
-      int telefono1 = 0,
-      int telefono2 = 0}) {
+      int telefono = 0,
+      int celular = 0}) {
     this._id = id;
     this._nombre = nombre;
     this._contacto = contacto;
-    this._telefono1 = telefono1;
-    this._telefono2 = telefono2;
+    this._telefono = telefono;
+    this._celular = celular;
   }
 
   // Getters
@@ -23,47 +25,42 @@ class Proveedor {
   int get getId => this._id;
   String get getNombre => this._nombre;
   String get getContacto => this._contacto;
-  int get getTelefono1 => this._telefono1;
-  int get getTelefono2 => this._telefono2;
+  int get getTelefono => this._telefono;
+  int get getCelular => this._celular;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setNombre(String nombre) => this._nombre = nombre;
-  set setContacto(String contacto) => this._contacto = contacto;
-  set setTelefono1(int telefono) => this._telefono1 = telefono;
-  set setTelefono2(int telefono) => this._telefono2 = telefono;
+  void setId(int id) => this._id = id;
+  void setNombre(String nombre) => this._nombre = nombre;
+  void setContacto(String contacto) => this._contacto = contacto;
+  void setTelefono(int telefono) => this._telefono = telefono;
+  void setCelular(int telefono) => this._celular = telefono;
+
+  factory Proveedor.fromJson(Map<String, dynamic> json) => Proveedor(
+      id: json["id"],
+      nombre: json["nombre"],
+      contacto: json["contacto"],
+      telefono: json["telefono"],
+      celular: json["celular"],
+  );
+
+  Map<String, dynamic> toJson() => {
+      "id": _id,
+      "nombre": _nombre,
+      "contacto": _contacto,
+      "telefono": _telefono,
+      "celular": _celular,
+  };
 }
 
-// Metodos del CRUD
+// Metodos para el manejo de listas de proveedores <-> json
 
-List<Proveedor>? listarProveedores() {
-  List<Proveedor> listaProveedores = [];
+List<Proveedor> proveedoresFromJson(String str) => List<Proveedor>.from(json.decode(str).map((x) => Proveedor.fromJson(x)));
 
-  // busca el proveedor en la base de datos y retorna la lista
+String proveedoresToJson(List<Proveedor> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-  return listaProveedores;
-}
+// Metodos para convertir estructura proveedor <-> json
 
-Proveedor buscarProveedorPorId(int id) {
-  Proveedor proveedor = Proveedor();
+Proveedor proveedorFromJson(String str) => Proveedor.fromJson(json.decode(str));
 
-  // busca en la base de datos por el id del proveedor
-
-  return proveedor;
-}
-
-int actualizarProveedor(Proveedor proveedor) {
-  int estado = 0;
-  Proveedor nuevoProveedor = buscarProveedorPorId(proveedor.getId);
-
-  if (nuevoProveedor.getId != 0) {
-    // actualizar el proveedor
-    // si hay error, cambiar el estado
-  } else {
-    // Crear el nuevo proveedor
-    // si hay error, cambiar el estado
-  }
-
-  return estado;
-}
+String proveedorToJson(Proveedor data) => json.encode(data.toJson());
