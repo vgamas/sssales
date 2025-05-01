@@ -56,7 +56,7 @@ class UsuarioServicio {
   // Actualizar un usuario
 
   Future<Usuario> actualizar(Usuario usuario) async {
-    final endPoint = "agregar";
+    final endPoint = "actualizar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri,
       headers: <String, String>{
@@ -72,12 +72,11 @@ class UsuarioServicio {
         throw("No se encuentra un usuario con ese id: ${usuario.getId}");
       } else {
         if (response.statusCode == HttpStatus.alreadyReported) {
-          throw("Ya se encuentra el usuario, correo o celular en otro usuario");
+          throw("Ya se encuentra el nombre de usuario, correo o celular en otro usuario");
         } else {
           throw("Error desconocido, codigo ${response.statusCode}");
         }
       }
     }
   }
-
 }

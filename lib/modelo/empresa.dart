@@ -6,7 +6,7 @@ class Empresa {
   String _direccion = "";
   int _telefonoFijo = 0;
   int _telefonoCelular = 0;
-  Ciudad? _idCiudad = null;
+  Ciudad _idCiudad = Ciudad();
   String _urlLogo = "";
   String _nombreTienda = "";
   bool _estado = true;
@@ -16,7 +16,7 @@ class Empresa {
       String direccion = "",
       int telefonoFijo = 0,
       int telefonoCelular = 0,
-      Ciudad? idCiudad = null,
+      Ciudad? idCiudad,
       String url = "",
       String nombreTienda = "",
       bool estado = true}) {
@@ -24,7 +24,7 @@ class Empresa {
     this._direccion = direccion;
     this._telefonoFijo = telefonoFijo;
     this._telefonoCelular = telefonoCelular;
-    this._idCiudad = idCiudad;
+    this._idCiudad = idCiudad ?? Ciudad();
     this._urlLogo = url;
     this._nombreTienda = nombreTienda;
     this._estado = estado;
@@ -68,7 +68,7 @@ factory Empresa.fromJson(Map<String, dynamic> json) => Empresa(
         "direccion": _direccion,
         "telefonoFijo": _telefonoFijo,
         "telefonoCelular": _telefonoCelular,
-        "idCiudad": _idCiudad?.toJson(),
+        "idCiudad": _idCiudad.toJson(),
         "urlLogo": _urlLogo,
         "nombreTienda": _nombreTienda,
         "estado": _estado,

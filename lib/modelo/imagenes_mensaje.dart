@@ -1,39 +1,50 @@
+import 'dart:convert';
+import 'mensajes.dart';
+
 class ImagenMensaje {
   int _id = 0;
-  int _idMensaje = 0;
+  Mensaje _idMensaje = Mensaje();
   String _urlImagen = "";
 
-  ImagenMensaje({int id = 0, int idMensaje = 0, String urlImagen = ""}) {
+  ImagenMensaje({int id = 0, Mensaje? mensaje, String urlImagen = ""}) {
     this._id = id;
-    this._idMensaje = 0;
-    this._urlImagen = "";
+    this._idMensaje = mensaje ?? Mensaje();
+    this._urlImagen = urlImagen;
   }
 
   // Getters
 
   int get getId => this._id;
-  int get getIdMensaje => this._idMensaje;
+  Mensaje get getIdMensaje => this._idMensaje;
   String get getUrlImagen => this._urlImagen;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setIdMensaje(int idMensaje) => this._idMensaje = idMensaje;
-  set setUrlImagen(String url) => this._urlImagen = url;
+  void setId(int id) => this._id = id;
+  void setIdMensaje(Mensaje idMensaje) => this._idMensaje = idMensaje;
+  void setUrlImagen(String url) => this._urlImagen = url;
+
+  factory ImagenMensaje.fromJson(Map<String, dynamic> json) => ImagenMensaje(
+      id: json["id"],
+      mensaje: Mensaje.fromJson(json["idMensaje"]),
+      urlImagen: json["urlImagen"],
+  );
+
+  Map<String, dynamic> toJson() => {
+      "id": _id,
+      "idMensaje": _idMensaje.toJson(),
+      "urlImagen": _urlImagen,
+  };  
 }
 
-// Metodos del CRUD
+// Convierte una lista de elementos ImagenMensaje <-> json
 
-List<ImagenMensaje>? listaImagenesDeMensaje(int idMensaje) {
-  List<ImagenMensaje>? listaImagenes = null;
+List<ImagenMensaje> imagenesMensajeFromJson(String str) => List<ImagenMensaje>.from(json.decode(str).map((x) => ImagenMensaje.fromJson(x)));
 
-  // busca la lista de las imagenes
+String imagenesMensajeToJson(List<ImagenMensaje> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-  return listaImagenes;
-}
+// Convierte un elemento ImagenMensaje <-> json
 
-int agregarImagenMensaje(ImagenMensaje imagen) {
-  int estado = 0;
+ImagenMensaje imagenMensajeFromJson(String str) => ImagenMensaje.fromJson(json.decode(str));
 
-  return estado;
-}
+String imagenMensajeToJson(ImagenMensaje data) => json.encode(data.toJson());

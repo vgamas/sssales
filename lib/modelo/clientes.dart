@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import '../modelo/tipos_documento.dart';
+
 import '../modelo/ciudades.dart';
 import '../modelo/usuarios.dart';
 import '../modelo/tipos_cliente.dart';
@@ -5,6 +9,8 @@ import '../modelo/tipos_cliente.dart';
 class Cliente {
   int _id = 0;
   String _nombreCompleto = "";
+  TipoDocumento _tipoDocumento = TipoDocumento();
+  String _numeroDocumento = "";
   String _correoElectronico = "";
   int _celular = 0;
   String _direccion = "";
@@ -23,7 +29,9 @@ class Cliente {
   Cliente(
       {int id = 0,
       String nombre = "",
-      String email = "",
+      TipoDocumento? tipoDocumento,
+      String numeroDocumento = "",
+      String correoElectronico = "",
       int celular = 0,
       String direccion = "",
       Ciudad? idCiudad,
@@ -39,7 +47,9 @@ class Cliente {
       String urlImagen = ""}) {
     this._id = id;
     this._nombreCompleto = nombre;
-    this._correoElectronico = email;
+    this._tipoDocumento = tipoDocumento ?? TipoDocumento();
+    this._numeroDocumento = numeroDocumento;
+    this._correoElectronico = correoElectronico;
     this._celular = celular;
     this._direccion = direccion;
     this._idCiudad = idCiudad ?? Ciudad();
@@ -57,6 +67,8 @@ class Cliente {
   // Getters
   int get getId => this._id;
   String get getNombre => this._nombreCompleto;
+  TipoDocumento get getTipoDocumento => this._tipoDocumento;
+  String get getNumeroDocumento => this._numeroDocumento;
   String get getCorreoElectronico => this._correoElectronico;
   int get getCelular => this._celular;
   String get getDireccion => this._direccion;
@@ -75,6 +87,8 @@ class Cliente {
   // Setters
   void setId(int id) => this._id = id;
   void setNombre(String nombre) => this._nombreCompleto = nombre;
+  void setTipoDocumento(TipoDocumento tipoDocumento) => this._tipoDocumento = tipoDocumento;
+  void setNumeroDocumento(String numeroDocumento) => this._numeroDocumento = numeroDocumento;
   void setCorreoElectronico(String correo) => this._correoElectronico = correo;
   void setCelular(int celular) => this._celular = celular;
   void setDireccion(String direccion) => this._direccion = direccion;
@@ -91,4 +105,59 @@ class Cliente {
       this._fechaNacimiento = fechaNacimiento;
   void setUsuario(Usuario usuario) => this._idUsuario = usuario;
   void setUrlImagen(String url) => this._urlImagen = url;
+
+  factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
+    id: json["id"],
+    nombre: json["nombreCompleto"],
+    tipoDocumento: TipoDocumento.fromJson(json["tipoDocumento"]),
+    numeroDocumento: json["numeroDocumento"],
+    correoElectronico: json["correo"],
+    celular: json["celular"],
+    direccion: json["direccion"],
+    idCiudad: Ciudad.fromJson(json["idCiudad"]),
+    estado: json["estado"],
+    observaciones: json["observaciones"],
+    tipoCliente: TipoCliente.fromJson(json["tipoCliente"]),
+    facebook: json["facebook"],
+    instagram: json["instagram"],
+    whatsapp: json["whatsapp"],
+    tiktok: json["tiktok"],
+    fechaNacimiento: DateTime.parse(json["fechaNacimiento"]),
+    idUsuario: Usuario.fromJson(json["usuario"]),
+    urlImagen: json["urlImagen"],
+  );
+
+  Map<String, dynamic> toJson() => {
+      "id": _id,
+      "nombreCompleto": _nombreCompleto,
+      "tipoDocumento": _tipoDocumento.toJson(),
+      "numeroDocumento": _numeroDocumento,
+      "correo": _correoElectronico,
+      "celular": _celular,
+      "direccion": _direccion,
+      "idCiudad": _idCiudad.toJson(),
+      "estado": _estado,
+      "observaciones": _observaciones,
+      "tipoCliente": _tipoCliente.toJson(),
+      "facebook": _facebook,
+      "instagram": _instagram,
+      "whatsapp": _whatsapp,
+      "tiktok": _tiktok,
+      "fechaNacimiento": "${_fechaNacimiento.year.toString().padLeft(4, '0')}-${_fechaNacimiento.month.toString().padLeft(2, '0')}-${_fechaNacimiento.day.toString().padLeft(2, '0')}",
+      "usuario": _idUsuario.toJson(),
+      "urlImagen": _urlImagen,
+  };
+
 }
+
+// Metodos que convierten un elemento de tipo Cliente <-> json
+
+Cliente clienteFromJson(String str) => Cliente.fromJson(json.decode(str));
+
+String clienteToJson(Cliente data) => json.encode(data.toJson());
+
+// Metodos que convierten una lista de elementos de tipo Cliente <-> json
+
+List<Cliente> clientesFromJson(String str) => List<Cliente>.from(json.decode(str).map((x) => Cliente.fromJson(x)));
+
+String clientesToJson(List<Cliente> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

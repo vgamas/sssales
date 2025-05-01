@@ -34,7 +34,7 @@ class Usuario {
   int get getCelular => this._celular;
   String get getCorreo => this._correo;
   String get getContrasena => this._contrasena;
-  Rol? get getRol => this._idRol;
+  Rol get getRol => this._idRol;
   bool get getEstado => this._estado;
 
   // Setters
@@ -63,7 +63,7 @@ class Usuario {
       "celular": _celular,
       "correo": _correo,
       "contrasena": _contrasena,
-      "idRol": _idRol?.toJson(),
+      "idRol": _idRol.toJson(),
       "estado": _estado,
   };
 }

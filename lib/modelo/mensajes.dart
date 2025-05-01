@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'usuarios.dart';
+
 class Mensaje {
   int _id = 0;
-  int _usrOrigen = 0;
-  int _usrDestino = 0;
+  Usuario _usrOrigen = Usuario();
+  Usuario _usrDestino = Usuario();
   DateTime _fechaHora = DateTime.now();
   bool _esPromocional =
       false; // true es un mensaje de promocion enviado por el administrados, si es mensaje de un chat es false
@@ -12,8 +15,8 @@ class Mensaje {
 
   Mensaje(
       {int id = 0,
-      int usuarioOrigen = 0,
-      int usuarioDestino = 0,
+      Usuario? usuarioOrigen,
+      Usuario? usuarioDestino,
       DateTime? fechaHora,
       bool promocional = false,
       String asunto = "",
@@ -21,8 +24,8 @@ class Mensaje {
       String tipo = "N",
       bool estado = false}) {
     this._id = id;
-    this._usrOrigen = usuarioOrigen;
-    this._usrDestino = usuarioDestino;
+    this._usrOrigen = usuarioOrigen ?? Usuario();
+    this._usrDestino = usuarioDestino ?? Usuario();
     this._fechaHora = fechaHora ?? DateTime.now();
     this._esPromocional = promocional;
     this._asunto = asunto;
@@ -34,8 +37,8 @@ class Mensaje {
   // Getters
 
   int get getId => this._id;
-  int get getUsuarioOrigen => this._usrOrigen;
-  int get getUsuarioDestino => this._usrDestino;
+  Usuario get getUsuarioOrigen => this._usrOrigen;
+  Usuario get getUsuarioDestino => this._usrDestino;
   DateTime get getFecha => this._fechaHora;
   bool get getPromocional => this._esPromocional;
   String get getAsunto => this._asunto;
@@ -45,66 +48,51 @@ class Mensaje {
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setUsuarioOrigen(int usuario) => this._usrOrigen = usuario;
-  set setUsuarioDestino(int usuario) => this._usrDestino = usuario;
-  set setFecha(DateTime fecha) => this._fechaHora = fecha;
-  set setPromocional(bool promocional) => this._esPromocional = promocional;
-  set setAsunto(String asunto) => this._asunto = asunto;
-  set setMensaje(String mensaje) => this._mensaje = mensaje;
-  set setTipo(String tipo) => this._tipo = tipo;
-  set setEstado(bool estado) => this._estado = estado;
+  void setId(int id) => this._id = id;
+  void setUsuarioOrigen(Usuario usuario) => this._usrOrigen = usuario;
+  void setUsuarioDestino(Usuario usuario) => this._usrDestino = usuario;
+  void setFecha(DateTime fecha) => this._fechaHora = fecha;
+  void setPromocional(bool promocional) => this._esPromocional = promocional;
+  void setAsunto(String asunto) => this._asunto = asunto;
+  void setMensaje(String mensaje) => this._mensaje = mensaje;
+  void setTipo(String tipo) => this._tipo = tipo;
+  void setEstado(bool estado) => this._estado = estado;
+
+  factory Mensaje.fromJson(Map<String, dynamic> json) => Mensaje(
+      id: json["id"],
+      usuarioOrigen: Usuario.fromJson(json["usuarioOrigen"]),
+      fechaHora: DateTime.parse('${json["fecha"]} ${json["hora"]}'),
+      promocional: json["promocional"],
+      asunto: json["asunto"],
+      mensaje: json["mensaje"],
+      tipo: json["tipo"],
+      estado: json["estado"],
+      usuarioDestino: Usuario.fromJson(json["usuarioDestino"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+      "id": _id,
+      "usuarioOrigen": _usrOrigen.toJson(),
+      "fecha": "${_fechaHora.year.toString().padLeft(4, '0')}-${_fechaHora.month.toString().padLeft(2, '0')}-${_fechaHora.day.toString().padLeft(2, '0')}",
+      "hora": "${_fechaHora.hour.toString().padLeft(2, '0')}:${_fechaHora.minute.toString().padLeft(2, '0')}:${_fechaHora.second.toString().padLeft(2, '0')}",
+      "promocional": _esPromocional,
+      "asunto": _asunto,
+      "mensaje": _mensaje,
+      "tipo": _tipo,
+      "estado": _estado,
+      "usuarioDestino": _usrDestino.toJson()
+  };
+  
 }
 
-// Metodos del CRUD
+// Convierte un elemento del tipo mensaje <-> json
 
-List<Mensaje>? buscarMensajePorUsuario(int usuario) {
-  List<Mensaje>? mensaje = null;
+Mensaje mensajeFromJson(String str) => Mensaje.fromJson(json.decode(str));
 
-  // busca los mensajes de ese usuario en una fecha determinada
+String mensajeToJson(Mensaje data) => json.encode(data.toJson());
 
-  return mensaje;
-}
+// Convierte una lista de elemento del tipo mensaje <-> json
 
-List<Mensaje>? buscarMensajePorFecha(int usuario, DateTime fecha) {
-  List<Mensaje>? mensaje = null;
+List<Mensaje> mensajesFromJson(String str) => List<Mensaje>.from(json.decode(str).map((x) => Mensaje.fromJson(x)));
 
-  // busca los mensajes de ese usuario en una fecha determinada
-
-  return mensaje;
-}
-
-List<Mensaje>? buscarMensajesEntreFechas(
-    int usuario, DateTime fechaInicial, DateTime fechaFinal) {
-  List<Mensaje>? mensaje = null;
-
-  // busca los mensajes de ese usuario en una fecha determinada
-
-  return mensaje;
-}
-
-List<Mensaje>? buscarMensajePorAsunto(int usuario, String asunto) {
-  List<Mensaje>? mensaje = null;
-
-  // busca los mensajes de ese usuario en una fecha determinada
-
-  return mensaje;
-}
-
-int agregarMensaje(Mensaje mensaje) {
-  int estado = 0;
-
-  // agregar el mensaje a la lista de mensajes del usuario
-
-  return estado;
-}
-
-// los mensajes no se pueden eliminar
-
-int marcarMensajeLeido(int idMensaje) {
-  int estado = 0;
-
-  // busca el mensaje y le actualiza el estado
-
-  return estado;
-}
+String mensajesToJson(List<Mensaje> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

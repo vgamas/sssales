@@ -4,17 +4,17 @@ import 'departamentos.dart';
 class Ciudad {
   int _id = 0;
   String _nombre = "";
-  Departamento? _idDepartamento = null;
+  Departamento _idDepartamento = Departamento();
   int _codigo = 0;
 
   Ciudad(
       {int id = 0,
       String nombre = "",
-      Departamento? idDepartamento = null,
+      Departamento? idDepartamento,
       int codigo = 0}) {
     this._id = id;
     this._nombre = nombre;
-    this._idDepartamento = idDepartamento;
+    this._idDepartamento = idDepartamento ?? Departamento();
     this._codigo = codigo;
   }
 
@@ -35,15 +35,13 @@ class Ciudad {
   factory Ciudad.fromJson(Map<String, dynamic> json) => Ciudad(
       id: json["id"],
       nombre: json["nombre"],
-      idDepartamento: json["idDepartamento"] == null
-          ? null
-          : Departamento.fromJson(json["idDepartamento"]),
+      idDepartamento: json["idDepartamento"],
       codigo: json["codigo"]);
 
   Map<String, dynamic> toJson() => {
         "id": _id,
         "nombre": _nombre,
-        "idDepartamento": _idDepartamento?.toJson(),
+        "idDepartamento": _idDepartamento.toJson(),
         "codigo": _codigo
       };
 }
