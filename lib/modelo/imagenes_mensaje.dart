@@ -2,38 +2,34 @@ import 'dart:convert';
 import 'mensajes.dart';
 
 class ImagenMensaje {
-  int _id = 0;
-  Mensaje _idMensaje = Mensaje();
-  String _urlImagen = "";
+  int id;
+  Mensaje idMensaje;
+  String urlImagen;
 
-  ImagenMensaje({int id = 0, Mensaje? mensaje, String urlImagen = ""}) {
-    this._id = id;
-    this._idMensaje = mensaje ?? Mensaje();
-    this._urlImagen = urlImagen;
-  }
+  ImagenMensaje({required this.id, required this.idMensaje, required this.urlImagen});
 
   // Getters
 
-  int get getId => this._id;
-  Mensaje get getIdMensaje => this._idMensaje;
-  String get getUrlImagen => this._urlImagen;
+  int get getId => this.id;
+  Mensaje get getIdMensaje => this.idMensaje;
+  String get getUrlImagen => this.urlImagen;
 
   // Setters
 
-  void setId(int id) => this._id = id;
-  void setIdMensaje(Mensaje idMensaje) => this._idMensaje = idMensaje;
-  void setUrlImagen(String url) => this._urlImagen = url;
+  void setId(int id) => this.id = id;
+  void setIdMensaje(Mensaje idMensaje) => this.idMensaje = idMensaje;
+  void setUrlImagen(String url) => this.urlImagen = url;
 
   factory ImagenMensaje.fromJson(Map<String, dynamic> json) => ImagenMensaje(
       id: json["id"],
-      mensaje: Mensaje.fromJson(json["idMensaje"]),
+      idMensaje: Mensaje.fromJson(json["idMensaje"]),
       urlImagen: json["urlImagen"],
   );
 
   Map<String, dynamic> toJson() => {
-      "id": _id,
-      "idMensaje": _idMensaje.toJson(),
-      "urlImagen": _urlImagen,
+      "id": id,
+      "idMensaje": idMensaje.toJson(),
+      "urlImagen": urlImagen,
   };  
 }
 

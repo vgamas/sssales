@@ -3,14 +3,14 @@ import '../servicio/ciudades_servicio.dart';
 import '../modelo/departamentos.dart';
 
 List<Ciudad> listaCiudades = [];
-Ciudad ciudad = Ciudad();
+//Ciudad ciudad = Ciudad();
 
 CiudadesServicio ciudadSvc = CiudadesServicio();
 
 void main(List<String> args) async {
-/*  ciudad = await ciudadSvc.buscarCiudadPorId(1);
-  print(ciudad);
-*/
+  Ciudad ciudad = await ciudadSvc.buscarCiudadPorId(1);
+  print(ciudad.toJson());
+
  
 /*  listaCiudades = await ciudadSvc.buscarCiudadesPorDepartamento(1);
   print(listaCiudades);
@@ -32,7 +32,7 @@ void main(List<String> args) async {
   }
   */
 
-  Departamento dpto = Departamento(id:3);
+/*  Departamento dpto = Departamento(id:3);
 
   ciudad.setNombre("BOGOTA");
   ciudad.setCodigo(1);
@@ -42,4 +42,5 @@ void main(List<String> args) async {
 ciudad.setId(1);
 
 print(await ciudadSvc.actualizar(ciudad));
+*/
 }

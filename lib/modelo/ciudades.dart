@@ -2,47 +2,42 @@ import 'dart:convert';
 import 'departamentos.dart';
 
 class Ciudad {
-  int _id = 0;
-  String _nombre = "";
-  Departamento _idDepartamento = Departamento();
-  int _codigo = 0;
+  int id;
+  String nombre;
+  Departamento idDepartamento;
+  int codigo;
 
   Ciudad(
-      {int id = 0,
-      String nombre = "",
-      Departamento? idDepartamento,
-      int codigo = 0}) {
-    this._id = id;
-    this._nombre = nombre;
-    this._idDepartamento = idDepartamento ?? Departamento();
-    this._codigo = codigo;
-  }
+      {required this.id,
+      required this.nombre,
+      required this.idDepartamento,
+      required this.codigo});
 
 // Getters
 
-  int get getId => this._id;
-  String get getNombre => this._nombre;
-  Departamento? get getDepartamento => this._idDepartamento;
-  int get getCodigo => this._codigo;
+  int get getId => this.id;
+  String get getNombre => this.nombre;
+  Departamento get getDepartamento => this.idDepartamento;
+  int get getCodigo => this.codigo;
 
 // Setters
 
-  void setId(int id) => this._id = id;
-  void setNombre(String nombre) => this._nombre = nombre;
-  void setDepartamento(Departamento dpto) => this._idDepartamento = dpto;
-  void setCodigo(int codigo) => this._codigo = codigo;
+  void setId(int id) => this.id = id;
+  void setNombre(String nombre) => this.nombre = nombre;
+  void setDepartamento(Departamento dpto) => this.idDepartamento = dpto;
+  void setCodigo(int codigo) => this.codigo = codigo;
 
   factory Ciudad.fromJson(Map<String, dynamic> json) => Ciudad(
       id: json["id"],
       nombre: json["nombre"],
-      idDepartamento: json["idDepartamento"],
+      idDepartamento: Departamento.fromJson(json["idDepartamento"]),
       codigo: json["codigo"]);
 
   Map<String, dynamic> toJson() => {
-        "id": _id,
-        "nombre": _nombre,
-        "idDepartamento": _idDepartamento.toJson(),
-        "codigo": _codigo
+        "id": id,
+        "nombre": nombre,
+        "idDepartamento": idDepartamento.toJson(),
+        "codigo": codigo
       };
 }
 

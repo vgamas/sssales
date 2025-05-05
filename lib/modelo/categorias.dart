@@ -1,62 +1,55 @@
 import 'dart:convert';
 
 class Categoria {
-  int _id = 0;
-  String _nombre = "";
-  String _descripcion = "";
-  String _color = "";
-  String _urlImagen = "";
-  bool _estado = true; // true = activa - falte = inactiva
+  int id = 0;
+  String nombre;
+  String descripcion;
+  String color;
+  String urlImagen;
+  bool estado; // true = activa - falte = inactiva
 
   Categoria(
-      {int id = 0,
-      String nombre = "",
-      String descripcion = "",
-      String color = "",
-      String url = "",
-      bool estado = true}) {
-    this._id = id;
-    this._nombre = nombre;
-    this._descripcion = descripcion;
-    this._color = color;
-    this._urlImagen = url;
-    this._estado = estado;
-  }
+      {required this.id,
+      required this.nombre,
+      required this.descripcion,
+      required this.color,
+      required this.urlImagen,
+      required this.estado});
 
   // Getters
 
-  int get getId => this._id;
-  String get getNombre => this._nombre;
-  String get getDescripcion => this._descripcion;
-  String get getColor => this._color;
-  String get getUrlImagen => this._urlImagen;
-  bool get getEstado => this._estado;
+  int get getId => this.id;
+  String get getNombre => this.nombre;
+  String get getDescripcion => this.descripcion;
+  String get getColor => this.color;
+  String get getUrlImagen => this.urlImagen;
+  bool get getEstado => this.estado;
 
   // Setters
 
-  void setId(int id) => this._id = id;
-  void setNombre(String nombre) => this._nombre = nombre;
-  void setDescripcion(String descripcion) => this._descripcion = descripcion;
-  void setColor(String color) => this._color = color;
-  void setUrlImagen(String url) => this._urlImagen = url;
-  void setEstado(bool estado) => this._estado = estado;
+  void setId(int id) => this.id = id;
+  void setNombre(String nombre) => this.nombre = nombre;
+  void setDescripcion(String descripcion) => this.descripcion = descripcion;
+  void setColor(String color) => this.color = color;
+  void setUrlImagen(String url) => this.urlImagen = url;
+  void setEstado(bool estado) => this.estado = estado;
 
   factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
       id: json["id"],
       nombre: json["nombre"],
       descripcion: json["descripcion"],
       color: json["color"],
-      url: json["urlImagen"],
+      urlImagen: json["urlImagen"],
       estado: json["estado"],
   );
 
   Map<String, dynamic> toJson() => {
-      "id": _id,
-      "nombre": _nombre,
-      "descripcion": _descripcion,
-      "color": _color,
-      "urlImagen": _urlImagen,
-      "estado": _estado,
+      "id": id,
+      "nombre": nombre,
+      "descripcion": descripcion,
+      "color": color,
+      "urlImagen": urlImagen,
+      "estado": estado,
   };
 }
 

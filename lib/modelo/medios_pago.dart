@@ -1,41 +1,35 @@
 import 'dart:convert';
 
 class MedioPago {
-  int _id = 0;
-  String _nombre = "";
-  String _conexion = "";
-  bool _estado = true;
-  String _instrucciones = "";
+  int id;
+  String nombre;
+  String conexion;
+  bool estado;
+  String instrucciones;
 
   MedioPago(
-      {int id = 0,
-      String nombre = "",
-      String conexion = "",
-      bool estado = true,
-      String instrucciones = ""}) {
-    this._id = id;
-    this._nombre = nombre;
-    this._conexion = conexion;
-    this._estado = estado;
-    this._instrucciones = instrucciones;
-  }
+      {required this.id,
+      required this.nombre,
+      required this.conexion,
+      required this.estado,
+      required this.instrucciones});
 
   // Getters
 
-  int get getId => this._id;
-  String get getNombre => this._nombre;
-  String get getConexion => this._conexion;
-  bool get getEstado => this._estado;
-  String get getInstrucciones => this._instrucciones;
+  int get getId => this.id;
+  String get getNombre => this.nombre;
+  String get getConexion => this.conexion;
+  bool get getEstado => this.estado;
+  String get getInstrucciones => this.instrucciones;
 
   // Setters
 
-  void setId(int id) => this._id = id;
-  void setNombre(String nombre) => this._nombre = nombre;
-  void setConexion(String conexion) => this._conexion = conexion;
-  void setEstado(bool estado) => this._estado = estado;
+  void setId(int id) => this.id = id;
+  void setNombre(String nombre) => this.nombre = nombre;
+  void setConexion(String conexion) => this.conexion = conexion;
+  void setEstado(bool estado) => this.estado = estado;
   void setInstruciones(String instrucciones) =>
-      this._instrucciones = instrucciones;
+      this.instrucciones = instrucciones;
 
   factory MedioPago.fromJson(Map<String, dynamic> json) => MedioPago(
         id: json["id"],
@@ -46,11 +40,11 @@ class MedioPago {
     );
 
     Map<String, dynamic> toJson() => {
-        "id": _id,
-        "nombre": _nombre,
-        "conexion": _conexion,
-        "estado": _estado,
-        "instrucciones": _instrucciones,
+        "id": id,
+        "nombre": nombre,
+        "conexion": conexion,
+        "estado": estado,
+        "instrucciones": instrucciones,
     };
 }
 

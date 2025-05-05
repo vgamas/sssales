@@ -8,16 +8,12 @@ Departamento dpto = Departamento();
 DepartamentosServicio dptoServicio = DepartamentosServicio();
 
 void main(List<String> args) async {
-/*  listaDptos = await dptoServicio.listarDepartamentos();
+  listaDptos = await dptoServicio.listarDepartamentos();
 
   print("La lista de departamentos es ->");
-  print(listaDptos);
-  for (Departamentos elemento in listaDptos) {
-    print(elemento.getId);
-    print(elemento.getNombre);
-    print(elemento.getCodigo);
+  for (Departamento elemento in listaDptos) {
+    print(elemento.toJson());
   }
-  */
 
 /*  listaDptos = await dptoServicio.buscarPorNombre("mega");
 
@@ -42,8 +38,10 @@ void main(List<String> args) async {
   print(dptoServicio.agregar(dpto));
   */
 
+/*
   dpto.setId(5);
   dpto.setCodigo(5);
   dpto.setNombre("ATLANTICO");
   print(dptoServicio.actualizar(dpto));
+*/
 }

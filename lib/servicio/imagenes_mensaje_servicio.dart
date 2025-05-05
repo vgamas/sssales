@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'conexion.dart';
-//import '../modelo/mensajes.dart';
 import '../modelo/imagenes_mensaje.dart';
 
 class ImagenMensajeServicio {

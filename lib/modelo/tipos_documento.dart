@@ -1,23 +1,20 @@
 import 'dart:convert';
 
 class TipoDocumento {
-    String _id = "";
-    String _nombre = "";
+    String id = "";
+    String nombre = "";
 
-    TipoDocumento({String id = "", String nombre = ""}) {
-      this._id = id;
-      this._nombre = nombre;
-    }
+    TipoDocumento({required this.id, required this.nombre});
 
     // Getters
 
-    String get getId => this._id;
-    String get getNombre => this._nombre;
+    String get getId => this.id;
+    String get getNombre => this.nombre;
 
     // Setters
 
-    void setId(String id) => this._id = id;
-    void setNombre(String nombre) => this._nombre = nombre;
+    void setId(String id) => this.id = id;
+    void setNombre(String nombre) => this.nombre = nombre;
 
     factory TipoDocumento.fromJson(Map<String, dynamic> json) => TipoDocumento(
         id: json["id"],
@@ -25,8 +22,8 @@ class TipoDocumento {
     );
 
     Map<String, dynamic> toJson() => {
-        "id": _id,
-        "nombre": _nombre,
+        "id": id,
+        "nombre": nombre,
     };
 }
 

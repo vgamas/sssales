@@ -14,6 +14,8 @@ class CiudadesServicio {
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
 
+    print(response.body);
+    
     if (response.statusCode == HttpStatus.ok) {
       return ciudadFromJson(response.body);
     } else {

@@ -2,18 +2,17 @@ import '../modelo/tipos_cliente.dart';
 import '../servicio/tipos_cliente_servicio.dart';
 
 List<TipoCliente> listaTipos = [];
-TipoCliente tipo = TipoCliente();
+//TipoCliente tipo = TipoCliente();
 
 TiposClienteServicio tiposClienteSvc = TiposClienteServicio();
 
 void main(List<String> args) async {
  
- /*
   listaTipos = await tiposClienteSvc.listarTodos();
   for (TipoCliente elemento in listaTipos) {
     print(elemento.toJson());
   }
-*/
+  
 /*
 tipo = await tiposClienteSvc.buscarPorId("N");
 print(tipo.toJson());

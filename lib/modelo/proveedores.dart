@@ -1,40 +1,34 @@
 import 'dart:convert';
 
 class Proveedor {
-  int _id = 0;
-  String _nombre = "";
-  String _contacto = "";
-  int _telefono = 0;
-  int _celular = 0;
+  int id = 0;
+  String nombre;
+  String contacto;
+  int telefono;
+  int celular;
 
   Proveedor(
-      {int id = 0,
-      String nombre = "",
-      String contacto = "",
-      int telefono = 0,
-      int celular = 0}) {
-    this._id = id;
-    this._nombre = nombre;
-    this._contacto = contacto;
-    this._telefono = telefono;
-    this._celular = celular;
-  }
+      {required this.id,
+      required this.nombre,
+      required this.contacto,
+      required this.telefono,
+      required this.celular});
 
   // Getters
 
-  int get getId => this._id;
-  String get getNombre => this._nombre;
-  String get getContacto => this._contacto;
-  int get getTelefono => this._telefono;
-  int get getCelular => this._celular;
+  int get getId => this.id;
+  String get getNombre => this.nombre;
+  String get getContacto => this.contacto;
+  int get getTelefono => this.telefono;
+  int get getCelular => this.celular;
 
   // Setters
 
-  void setId(int id) => this._id = id;
-  void setNombre(String nombre) => this._nombre = nombre;
-  void setContacto(String contacto) => this._contacto = contacto;
-  void setTelefono(int telefono) => this._telefono = telefono;
-  void setCelular(int telefono) => this._celular = telefono;
+  void setId(int id) => this.id = id;
+  void setNombre(String nombre) => this.nombre = nombre;
+  void setContacto(String contacto) => this.contacto = contacto;
+  void setTelefono(int telefono) => this.telefono = telefono;
+  void setCelular(int telefono) => this.celular = telefono;
 
   factory Proveedor.fromJson(Map<String, dynamic> json) => Proveedor(
       id: json["id"],
@@ -45,11 +39,11 @@ class Proveedor {
   );
 
   Map<String, dynamic> toJson() => {
-      "id": _id,
-      "nombre": _nombre,
-      "contacto": _contacto,
-      "telefono": _telefono,
-      "celular": _celular,
+      "id": id,
+      "nombre": nombre,
+      "contacto": contacto,
+      "telefono": telefono,
+      "celular": celular,
   };
 }
 

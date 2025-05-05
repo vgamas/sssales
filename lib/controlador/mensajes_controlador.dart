@@ -4,22 +4,22 @@ import '../modelo/usuarios.dart';
 import '../servicio/mensajes_servicio.dart';
 
 List<Mensaje> listaMensajes = [];
-Mensaje mensaje = Mensaje();
+//Mensaje mensaje = Mensaje();
 
-Usuario remitente = Usuario();
-Usuario destinatario = Usuario();
+//Usuario remitente = Usuario();
+//Usuario destinatario = Usuario();
 
 MensajeServicio mensajeSvc = MensajeServicio();
 
 void main(List<String> args) async {
 
-/*
+//*
   listaMensajes = await mensajeSvc.listarPorUsuario(1);
 
   for (Mensaje elemento in listaMensajes) {
     print(elemento.toJson());
   }
-*/
+//*/
 
 /*
   listaMensajes = await mensajeSvc.listarEntreUsuarios(1, 3);
@@ -43,6 +43,7 @@ void main(List<String> args) async {
   }
 */
 
+/*
 remitente.setId(1);
 destinatario.setId(4);
 
@@ -58,4 +59,5 @@ mensaje.setUsuarioDestino(destinatario);
 print(mensaje.toJson());
 
 print(await mensajeSvc.agregar(mensaje));
+*/
 }

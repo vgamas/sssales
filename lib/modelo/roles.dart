@@ -1,23 +1,20 @@
 import 'dart:convert';
 
 class Rol {
-  int _id = 0;
-  String _nombre = "";
+  int id;
+  String nombre;
 
-  Rol({int id = 0, String nombre = ""}) {
-    this._id = id;
-    this._nombre = nombre;
-  }
+  Rol({required this.id, required this.nombre});
 
   // Getters
 
-  int get getId => this._id;
-  String get getNombre => this._nombre;
+  int get getId => this.id;
+  String get getNombre => this.nombre;
 
   // Seters
 
-  void setId(int id) => this._id = id;
-  void setNombre(String nombre) => this._nombre = nombre;
+  void setId(int id) => this.id = id;
+  void setNombre(String nombre) => this.nombre = nombre;
 
   factory Rol.fromJson(Map<String, dynamic> json) => Rol(
         id: json["id"],
@@ -25,8 +22,8 @@ class Rol {
     );
 
     Map<String, dynamic> toJson() => {
-        "id": _id,
-        "nombre": _nombre,
+        "id": id,
+        "nombre": nombre,
     };
 }
 

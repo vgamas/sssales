@@ -7,108 +7,90 @@ import '../modelo/usuarios.dart';
 import '../modelo/tipos_cliente.dart';
 
 class Cliente {
-  int _id = 0;
-  String _nombreCompleto = "";
-  TipoDocumento _tipoDocumento = TipoDocumento();
-  String _numeroDocumento = "";
-  String _correoElectronico = "";
-  int _celular = 0;
-  String _direccion = "";
-  Ciudad _idCiudad = Ciudad();
-  bool _estado = true; // true = usuario activo - false = inactivo
-  String _observaciones = "";
-  TipoCliente _tipoCliente = TipoCliente();
-  String _facebook = "";
-  String _instagram = "";
-  String _whatsapp = "";
-  String _tiktok = "";
-  DateTime _fechaNacimiento = DateTime.now();
-  Usuario _idUsuario = Usuario();
-  String _urlImagen = "";
+  int id;
+  String nombreCompleto;
+  TipoDocumento tipoDocumento;
+  String numeroDocumento;
+  String correoElectronico;
+  int celular;
+  String direccion;
+  Ciudad idCiudad;
+  bool estado; // true = usuario activo - false = inactivo
+  String observaciones;
+  TipoCliente tipoCliente;
+  String facebook;
+  String instagram = "";
+  String whatsapp = "";
+  String tiktok = "";
+  DateTime fechaNacimiento;
+  Usuario idUsuario;
+  String urlImagen;
 
   Cliente(
-      {int id = 0,
-      String nombre = "",
-      TipoDocumento? tipoDocumento,
-      String numeroDocumento = "",
-      String correoElectronico = "",
-      int celular = 0,
-      String direccion = "",
-      Ciudad? idCiudad,
-      bool estado = true,
-      String observaciones = "",
-      TipoCliente? tipoCliente,
-      String facebook = "",
-      String instagram = "",
-      String whatsapp = "",
-      String tiktok = "",
-      DateTime? fechaNacimiento,
-      Usuario? idUsuario,
-      String urlImagen = ""}) {
-    this._id = id;
-    this._nombreCompleto = nombre;
-    this._tipoDocumento = tipoDocumento ?? TipoDocumento();
-    this._numeroDocumento = numeroDocumento;
-    this._correoElectronico = correoElectronico;
-    this._celular = celular;
-    this._direccion = direccion;
-    this._idCiudad = idCiudad ?? Ciudad();
-    this._observaciones = observaciones;
-    this._tipoCliente = tipoCliente ?? TipoCliente();
-    this._facebook = facebook;
-    this._instagram = instagram;
-    this._whatsapp = whatsapp;
-    this._tiktok = tiktok;
-    this._fechaNacimiento = fechaNacimiento ?? DateTime.now();
-    this._idUsuario = idUsuario ?? Usuario();
-    this._urlImagen = urlImagen;
-  }
+      {required this.id,
+      required this.nombreCompleto,
+      required this.tipoDocumento,
+      required this.numeroDocumento,
+      required this.correoElectronico,
+      required this.celular,
+      required this.direccion,
+      required this.idCiudad,
+      required this.estado,
+      required this.observaciones,
+      required this.tipoCliente,
+      required this.facebook,
+      required this.instagram,
+      required this.whatsapp,
+      required this.tiktok,
+      required this.fechaNacimiento,
+      required this.idUsuario,
+      required this.urlImagen});
 
   // Getters
-  int get getId => this._id;
-  String get getNombre => this._nombreCompleto;
-  TipoDocumento get getTipoDocumento => this._tipoDocumento;
-  String get getNumeroDocumento => this._numeroDocumento;
-  String get getCorreoElectronico => this._correoElectronico;
-  int get getCelular => this._celular;
-  String get getDireccion => this._direccion;
-  Ciudad get getCiudad => this._idCiudad;
-  bool get getEstado => this._estado;
-  String get getObservaciones => this._observaciones;
-  TipoCliente get getTipoCliente => this._tipoCliente;
-  String get getFacebook => this._facebook;
-  String get getInstagram => this._instagram;
-  String get getWhatsapp => this._whatsapp;
-  String get getTiktok => this._tiktok;
-  DateTime get getFechaNacimiento => this._fechaNacimiento;
-  Usuario get getUsuario => this._idUsuario;
-  String get getImagen => this._urlImagen;
+  int get getId => this.id;
+  String get getNombre => this.nombreCompleto;
+  TipoDocumento get getTipoDocumento => this.tipoDocumento;
+  String get getNumeroDocumento => this.numeroDocumento;
+  String get getCorreoElectronico => this.correoElectronico;
+  int get getCelular => this.celular;
+  String get getDireccion => this.direccion;
+  Ciudad get getCiudad => this.idCiudad;
+  bool get getEstado => this.estado;
+  String get getObservaciones => this.observaciones;
+  TipoCliente get getTipoCliente => this.tipoCliente;
+  String get getFacebook => this.facebook;
+  String get getInstagram => this.instagram;
+  String get getWhatsapp => this.whatsapp;
+  String get getTiktok => this.tiktok;
+  DateTime get getFechaNacimiento => this.fechaNacimiento;
+  Usuario get getUsuario => this.idUsuario;
+  String get getImagen => this.urlImagen;
 
   // Setters
-  void setId(int id) => this._id = id;
-  void setNombre(String nombre) => this._nombreCompleto = nombre;
-  void setTipoDocumento(TipoDocumento tipoDocumento) => this._tipoDocumento = tipoDocumento;
-  void setNumeroDocumento(String numeroDocumento) => this._numeroDocumento = numeroDocumento;
-  void setCorreoElectronico(String correo) => this._correoElectronico = correo;
-  void setCelular(int celular) => this._celular = celular;
-  void setDireccion(String direccion) => this._direccion = direccion;
-  void setCiudad(Ciudad ciudad) => this._idCiudad = ciudad;
-  void setEstado(bool estado) => this._estado = estado;
+  void setId(int id) => this.id = id;
+  void setNombre(String nombre) => this.nombreCompleto = nombre;
+  void setTipoDocumento(TipoDocumento tipoDocumento) => this.tipoDocumento = tipoDocumento;
+  void setNumeroDocumento(String numeroDocumento) => this.numeroDocumento = numeroDocumento;
+  void setCorreoElectronico(String correo) => this.correoElectronico = correo;
+  void setCelular(int celular) => this.celular = celular;
+  void setDireccion(String direccion) => this.direccion = direccion;
+  void setCiudad(Ciudad ciudad) => this.idCiudad = ciudad;
+  void setEstado(bool estado) => this.estado = estado;
   void setObservaciones(String observaciones) =>
-      this._observaciones = observaciones;
-  void setTipoCliente(TipoCliente tipoCliente) => this._tipoCliente = tipoCliente;
-  void setFacebook(String facebook) => this._facebook = facebook;
-  void setInstagram(String instagram) => this._instagram = instagram;
-  void setWhatsapp(String whatsapp) => this._whatsapp = whatsapp;
-  void setTiktok(String tiktok) => this._tiktok = tiktok;
+      this.observaciones = observaciones;
+  void setTipoCliente(TipoCliente tipoCliente) => this.tipoCliente = tipoCliente;
+  void setFacebook(String facebook) => this.facebook = facebook;
+  void setInstagram(String instagram) => this.instagram = instagram;
+  void setWhatsapp(String whatsapp) => this.whatsapp = whatsapp;
+  void setTiktok(String tiktok) => this.tiktok = tiktok;
   void setFechaNacimiento(DateTime fechaNacimiento) =>
-      this._fechaNacimiento = fechaNacimiento;
-  void setUsuario(Usuario usuario) => this._idUsuario = usuario;
-  void setUrlImagen(String url) => this._urlImagen = url;
+      this.fechaNacimiento = fechaNacimiento;
+  void setUsuario(Usuario usuario) => this.idUsuario = usuario;
+  void setUrlImagen(String url) => this.urlImagen = url;
 
   factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
     id: json["id"],
-    nombre: json["nombreCompleto"],
+    nombreCompleto: json["nombreCompleto"],
     tipoDocumento: TipoDocumento.fromJson(json["tipoDocumento"]),
     numeroDocumento: json["numeroDocumento"],
     correoElectronico: json["correo"],
@@ -128,24 +110,24 @@ class Cliente {
   );
 
   Map<String, dynamic> toJson() => {
-      "id": _id,
-      "nombreCompleto": _nombreCompleto,
-      "tipoDocumento": _tipoDocumento.toJson(),
-      "numeroDocumento": _numeroDocumento,
-      "correo": _correoElectronico,
-      "celular": _celular,
-      "direccion": _direccion,
-      "idCiudad": _idCiudad.toJson(),
-      "estado": _estado,
-      "observaciones": _observaciones,
-      "tipoCliente": _tipoCliente.toJson(),
-      "facebook": _facebook,
-      "instagram": _instagram,
-      "whatsapp": _whatsapp,
-      "tiktok": _tiktok,
-      "fechaNacimiento": "${_fechaNacimiento.year.toString().padLeft(4, '0')}-${_fechaNacimiento.month.toString().padLeft(2, '0')}-${_fechaNacimiento.day.toString().padLeft(2, '0')}",
-      "usuario": _idUsuario.toJson(),
-      "urlImagen": _urlImagen,
+      "id": id,
+      "nombreCompleto": nombreCompleto,
+      "tipoDocumento": tipoDocumento.toJson(),
+      "numeroDocumento": numeroDocumento,
+      "correo": correoElectronico,
+      "celular": celular,
+      "direccion": direccion,
+      "idCiudad": idCiudad.toJson(),
+      "estado": estado,
+      "observaciones": observaciones,
+      "tipoCliente": tipoCliente.toJson(),
+      "facebook": facebook,
+      "instagram": instagram,
+      "whatsapp": whatsapp,
+      "tiktok": tiktok,
+      "fechaNacimiento": "${fechaNacimiento.year.toString().padLeft(4, '0')}-${fechaNacimiento.month.toString().padLeft(2, '0')}-${fechaNacimiento.day.toString().padLeft(2, '0')}",
+      "usuario": idUsuario.toJson(),
+      "urlImagen": urlImagen,
   };
 
 }

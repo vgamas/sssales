@@ -2,7 +2,7 @@ import '../modelo/proveedores.dart';
 import '../servicio/proveedores_servicio.dart';
 
 List<Proveedor> listaProveedores = [];
-Proveedor proveedor = Proveedor();
+//Proveedor proveedor = Proveedor();
 
 ProveedorServicio proveedorSvc = ProveedorServicio();
 
@@ -27,14 +27,12 @@ void main(List<String> args) async {
 */
 
 /*
-  proveedor.setNombre("Monica Jaime");
-  proveedor.setContacto("Mónica Jaime");
-  proveedor.setTelefono(0);
-  proveedor.setCelular(3213549851);
+  Proveedor proveedor = Proveedor(id: 0, nombre: "M&V Solutions SAS", contacto: "Monica Alexandra Jaime Burgos", celular: 3213549851, telefono: 0);
 
   print(await proveedorSvc.agregar(proveedor));
 */
 
+/*
   proveedor.setId(2);
   proveedor.setNombre("Monica Alexandra Jaime Burgos");
   proveedor.setContacto("Mónica Alexandra Jaime Burgos");
@@ -42,5 +40,5 @@ void main(List<String> args) async {
   proveedor.setCelular(3213549851);
 
   print(await proveedorSvc.actualizar(proveedor));
-
+*/
 }

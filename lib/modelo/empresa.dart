@@ -2,55 +2,45 @@ import 'dart:convert';
 import 'ciudades.dart';
 
 class Empresa {
-  String _nombre = "";
-  String _direccion = "";
-  int _telefonoFijo = 0;
-  int _telefonoCelular = 0;
-  Ciudad _idCiudad = Ciudad();
-  String _urlLogo = "";
-  String _nombreTienda = "";
-  bool _estado = true;
+  String nombre;
+  String direccion;
+  int telefonoFijo;
+  int telefonoCelular;
+  Ciudad idCiudad;
+  String urlLogo;
+  String nombreTienda;
+  bool estado;
 
   Empresa(
-      {String nombre = "",
-      String direccion = "",
-      int telefonoFijo = 0,
-      int telefonoCelular = 0,
-      Ciudad? idCiudad,
-      String url = "",
-      String nombreTienda = "",
-      bool estado = true}) {
-    this._nombre = nombre;
-    this._direccion = direccion;
-    this._telefonoFijo = telefonoFijo;
-    this._telefonoCelular = telefonoCelular;
-    this._idCiudad = idCiudad ?? Ciudad();
-    this._urlLogo = url;
-    this._nombreTienda = nombreTienda;
-    this._estado = estado;
-  }
-
+      {required this.nombre,
+      required this.direccion,
+      required this.telefonoFijo,
+      required this.telefonoCelular,
+      required this.idCiudad,
+      required this.urlLogo,
+      required this.nombreTienda,
+      required this.estado});
 // Getters
 
-  String get getNombre => this._nombre;
-  String get getDireccion => this._direccion;
-  int get getTelefonoFijo => this._telefonoFijo;
-  int get getTelefonoCelular => this._telefonoCelular;
-  Ciudad? get getCiudad => this._idCiudad;
-  String get getUrlLogo => this._urlLogo;
-  String get getNombreTienda => this._nombreTienda;
-  bool get getEstado => this._estado;
+  String get getNombre => this.nombre;
+  String get getDireccion => this.direccion;
+  int get getTelefonoFijo => this.telefonoFijo;
+  int get getTelefonoCelular => this.telefonoCelular;
+  Ciudad? get getCiudad => this.idCiudad;
+  String get getUrlLogo => this.urlLogo;
+  String get getNombreTienda => this.nombreTienda;
+  bool get getEstado => this.estado;
 
   // Setters
 
-  void setNombre(String nombre) => this._nombre = nombre;
-  void setDireccion(String direccion) => this._direccion = direccion;
-  void setTelefonoFijo(int telefono) => this._telefonoFijo = telefono;
-  void setTelefonoCelular(int telefono) => this._telefonoCelular = telefono;
-  void setCiudad(Ciudad idCiudad) => this._idCiudad = idCiudad;
-  void setUrlLogo(String url) => this._urlLogo = url;
-  void setNombreTienda(String nombre) => this._nombreTienda = nombre;
-  void setEstado(bool estado) => this._estado = estado;
+  void setNombre(String nombre) => this.nombre = nombre;
+  void setDireccion(String direccion) => this.direccion = direccion;
+  void setTelefonoFijo(int telefono) => this.telefonoFijo = telefono;
+  void setTelefonoCelular(int telefono) => this.telefonoCelular = telefono;
+  void setCiudad(Ciudad idCiudad) => this.idCiudad = idCiudad;
+  void setUrlLogo(String url) => this.urlLogo = url;
+  void setNombreTienda(String nombre) => this.nombreTienda = nombre;
+  void setEstado(bool estado) => this.estado = estado;
 
 factory Empresa.fromJson(Map<String, dynamic> json) => Empresa(
         nombre: json["nombre"],
@@ -58,20 +48,20 @@ factory Empresa.fromJson(Map<String, dynamic> json) => Empresa(
         telefonoFijo: json["telefonoFijo"],
         telefonoCelular: json["telefonoCelular"],
         idCiudad: Ciudad.fromJson(json["idCiudad"]),
-        url: json["urlLogo"],
+        urlLogo: json["urlLogo"],
         nombreTienda: json["nombreTienda"],
         estado: json["estado"],
     );
 
     Map<String, dynamic> toJson() => {
-        "nombre": _nombre,
-        "direccion": _direccion,
-        "telefonoFijo": _telefonoFijo,
-        "telefonoCelular": _telefonoCelular,
-        "idCiudad": _idCiudad.toJson(),
-        "urlLogo": _urlLogo,
-        "nombreTienda": _nombreTienda,
-        "estado": _estado,
+        "nombre": nombre,
+        "direccion": direccion,
+        "telefonoFijo": telefonoFijo,
+        "telefonoCelular": telefonoCelular,
+        "idCiudad": idCiudad.toJson(),
+        "urlLogo": urlLogo,
+        "nombreTienda": nombreTienda,
+        "estado": estado,
     };
 }
 

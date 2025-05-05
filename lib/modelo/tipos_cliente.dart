@@ -1,27 +1,23 @@
 import 'dart:convert';
 
 class TipoCliente {
-  String _id = "";
-  String _nombre = "";
-  String _descripcion = "";
+  String id;
+  String nombre;
+  String descripcion;
 
-  TipoCliente({String id = "", String nombre = "", String descripcion = ""}) {
-    this._id = id;
-    this._nombre = nombre;
-    this._descripcion = descripcion;
-  }
+  TipoCliente({required this.id,required this.nombre,required this.descripcion});
 
   // Getters
 
-  String get getId => this._id;
-  String get getNombre => this._nombre;
-  String get getDescripcion => this._descripcion;
+  String get getId => this.id;
+  String get getNombre => this.nombre;
+  String get getDescripcion => this.descripcion;
 
   // Setters
 
-  void setId(String id) => this._id = id;
-  void setNombre(String nombre) => this._nombre = nombre;
-  void setDescripcion(String descripcion) => this._descripcion = descripcion;
+  void setId(String id) => this.id = id;
+  void setNombre(String nombre) => this.nombre = nombre;
+  void setDescripcion(String descripcion) => this.descripcion = descripcion;
 
   factory TipoCliente.fromJson(Map<String, dynamic> json) => TipoCliente(
     id: json["id"],
@@ -30,9 +26,9 @@ class TipoCliente {
   );
 
   Map<String, dynamic> toJson() => {
-      "id": _id,
-      "nombre": _nombre,
-      "descripcion": _descripcion,
+      "id": id,
+      "nombre": nombre,
+      "descripcion": descripcion,
   };
 }
 
