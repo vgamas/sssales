@@ -1,75 +1,79 @@
+import 'dart:convert';
+
+import 'clientes.dart';
+import 'productos.dart';
+
 class Carrito {
-  int _id = 0;
-  int _idCliente = 0;
-  int _idProducto = 0;
-  int _cantidad = 0;
-  double _precioUnitario = 0;
-  double _ivaUnitario = 0;
-  DateTime _fechaReserva = DateTime
-      .now(); // Pilas para convertir en string la fecha en formato AAAA-MM-DD
+  int id;
+  Cliente idCliente;
+  Producto idProducto;
+  int cantidad;
+  double precioUnitario;
+  double ivaUnitario;
+  DateTime
+      fechaReserva; // Pilas para convertir en string la fecha en formato AAAA-MM-DD
 
   Carrito(
-      {int cliente = 0,
-      int producto = 0,
-      int cantidad = 0,
-      double precioUnitario = 0,
-      double iva = 0,
-      DateTime? fechaReserva}) {
-    this._id = 0;
-    this._idCliente = cliente;
-    this._idProducto = producto;
-    this._cantidad = cantidad;
-    this._precioUnitario = precioUnitario;
-    this._ivaUnitario = iva;
-    this._fechaReserva = fechaReserva ?? DateTime.now();
-  }
+      {required this.id,
+      required this.idCliente,
+      required this.idProducto,
+      required this.cantidad,
+      required this.precioUnitario,
+      required this.ivaUnitario,
+      required this.fechaReserva});
 
   // Getters
 
-  int get getId => this._id;
-  int get getCliente => this._idCliente;
-  int get getProducto => this._idProducto;
-  int get getCantidad => this._cantidad;
-  double get getPrecioUnitario => this._precioUnitario;
-  double get getIvaUnitario => this._ivaUnitario;
-  DateTime get getFechaReserva => this._fechaReserva;
+  int get getId => this.id;
+  Cliente get getCliente => this.idCliente;
+  Producto get getProducto => this.idProducto;
+  int get getCantidad => this.cantidad;
+  double get getPrecioUnitario => this.precioUnitario;
+  double get getIvaUnitario => this.ivaUnitario;
+  DateTime get getFechaReserva => this.fechaReserva;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setCliente(int cliente) => this._idCliente = cliente;
-  set setProducto(int producto) => this._idProducto = producto;
-  set setCantidad(int cantidad) => this._cantidad = cantidad;
-  set setPrecioUnitario(double precio) => this._precioUnitario = precio;
-  set setIvaUnitario(double iva) => this._ivaUnitario = iva;
-  set setFechaReserva(DateTime fecha) => this._fechaReserva = fecha;
+  void setId(int id) => this.id = id;
+  void setCliente(Cliente cliente) => this.idCliente = cliente;
+  void setProducto(Producto producto) => this.idProducto = producto;
+  void setCantidad(int cantidad) => this.cantidad = cantidad;
+  void setPrecioUnitario(double precio) => this.precioUnitario = precio;
+  void setIvaUnitario(double iva) => this.ivaUnitario = iva;
+  void setFechaReserva(DateTime fecha) => this.fechaReserva = fecha;
+
+  factory Carrito.fromJson(Map<String, dynamic> json) => Carrito(
+        id: json["id"],
+        cantidad: json["cantidad"],
+        precioUnitario: json["precioUnitario"],
+        ivaUnitario: json["ivaUnitario"],
+        fechaReserva: DateTime.parse(json["fechaReserva"]),
+        idProducto: Producto.fromJson(json["idProducto"]),
+        idCliente: Cliente.fromJson(json["idCliente"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "cantidad": cantidad,
+        "precioUnitario": precioUnitario,
+        "ivaUnitario": ivaUnitario,
+        "fechaReserva":
+            "${fechaReserva.year.toString().padLeft(4, '0')}-${fechaReserva.month.toString().padLeft(2, '0')}-${fechaReserva.day.toString().padLeft(2, '0')}",
+        "idProducto": idProducto.toJson(),
+        "idCliente": idCliente.toJson(),
+      };
 }
 
-// Metodos del CRUD
+// Metodos para convertir de la estructura de Carrito <-> json
 
-List<Carrito>? listaCarritoPorCliente(int cliente) {
-  List<Carrito>? listaProductos = null;
+Carrito carritoFromJson(String str) => Carrito.fromJson(json.decode(str));
 
-  return listaProductos;
-}
+String carritoToJson(Carrito data) => json.encode(data.toJson());
 
-int borrarCarritoPorCliente(int cliente) {
-  int estado = 0;
+// Metodos para convertir de una lista de la estructura de Carrito <-> json
 
-  return estado;
-}
+List<Carrito> carritosFromJson(String str) =>
+    List<Carrito>.from(json.decode(str).map((x) => Carrito.fromJson(x)));
 
-actualizarProducto(Carrito producto) {
-  int estado = 0;
-
-  List<Carrito>? listaCarrito = listaCarritoPorCliente(producto.getCliente);
-
-  if (listaCarrito == null) {
-    // agregar el producto
-  } else {
-    // buscar producto en la lista
-    // actualizar el producto
-  }
-
-  return estado;
-}
+String carritosToJson(List<Carrito> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
