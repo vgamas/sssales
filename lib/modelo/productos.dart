@@ -1,163 +1,135 @@
+import 'dart:convert';
+
+import 'categorias.dart';
+import 'proveedores.dart';
+
 class Producto {
-  int _id = 0;
-  String _nombre = "";
-  String _descripcion = "";
-  String _codigo = "";
-  int _idCategoria = 0;
-  int _idProveedor = 0;
-  DateTime _fechaCreacion = DateTime.now();
-  int _stock = 0;
-  int _cantidadMinima = 0;
-  int _cantidadReservada = 0;
-  String _imagenPrincipal = "";
-  double _precioCompra = 0.0;
-  double _precioVenta = 0.0;
-  double _ivaVenta = 0.0;
-  int _popularidad = 0;
-  bool _destacado = false; // producto normal = false, producto destacado = true
-  bool _estado = true; // activo = true, inactivo = false
+  int id;
+  String nombre;
+  String descripcion;
+  String codigo;
+  Categoria idCategoria;
+  Proveedor idProveedor;
+  DateTime fechaCreacion;
+  int stockMinimo;
+  int existencia;
+  int cantidadReservada;
+  double precioCompra;
+  double precioVenta;
+  double ivaVenta;
+  int popularidad;
+  bool destacado; // producto normal = false, producto destacado = true
+  bool estado; // activo = true, inactivo = false
 
   Producto(
-      {int id = 0,
-      String nombre = "",
-      String descripcion = "",
-      String codigo = "",
-      int categoria = 0,
-      int proveedor = 0,
-      DateTime? fechaCreacion,
-      int stock = 0,
-      int cantidadMinima = 0,
-      int cantidadReservada = 0,
-      String imagenPrincipal = "",
-      double precioCompra = 0.0,
-      double precioVenta = 0.0,
-      double ivaVenta = 0.0,
-      int popularidad = 0,
-      bool destacado = false,
-      bool estado = true}) {
-    this._id = id;
-    this._nombre = nombre;
-    this._descripcion = descripcion;
-    this._codigo = codigo;
-    this._idCategoria = categoria;
-    this._idProveedor = proveedor;
-    this._fechaCreacion = fechaCreacion ?? DateTime.now();
-    this._stock = stock;
-    this._cantidadMinima = cantidadMinima;
-    this._cantidadReservada = cantidadReservada;
-    this._imagenPrincipal = imagenPrincipal;
-    this._precioCompra = precioCompra;
-    this._precioVenta = precioVenta;
-    this._ivaVenta = ivaVenta;
-    this._popularidad = popularidad;
-    this._destacado = destacado;
-    this._estado = estado;
-  }
+      {required this.id,
+      required this.nombre,
+      required this.descripcion,
+      required this.codigo,
+      required this.idCategoria,
+      required this.idProveedor,
+      required this.fechaCreacion,
+      required this.stockMinimo,
+      required this.existencia,
+      required this.cantidadReservada,
+      required this.precioCompra,
+      required this.precioVenta,
+      required this.ivaVenta,
+      required this.popularidad,
+      required this.destacado,
+      required this.estado});
 
   // Getters
 
-  int get getId => this._id;
-  String get getNombre => this._nombre;
-  String get getDescripcion => this._descripcion;
-  String get getCodigo => this._codigo;
-  int get getCategoria => this._idCategoria;
-  int get getProveedor => this._idProveedor;
-  DateTime get getFechaCreacion => this._fechaCreacion;
-  int get getStock => this._stock;
-  int get getCantidadMinima => this._cantidadMinima;
-  int get getCantidadReservada => this._cantidadReservada;
-  String get getImagenPrincipal => this._imagenPrincipal;
-  double get getPrecioCompra => this._precioCompra;
-  double get getPrecioVenta => this._precioVenta;
-  double get getIvaVenta => this._ivaVenta;
-  int get getPopularidad => this._popularidad;
-  bool get getDestacado => this._destacado;
-  bool get getEstado => this._estado;
+  int get getId => this.id;
+  String get getNombre => this.nombre;
+  String get getDescripcion => this.descripcion;
+  String get getCodigo => this.codigo;
+  Categoria get getCategoria => this.idCategoria;
+  Proveedor get getProveedor => this.idProveedor;
+  DateTime get getFechaCreacion => this.fechaCreacion;
+  int get getStockMinimo => this.stockMinimo;
+  int get getExistencia => this.existencia;
+  int get getCantidadReservada => this.cantidadReservada;
+  double get getPrecioCompra => this.precioCompra;
+  double get getPrecioVenta => this.precioVenta;
+  double get getIvaVenta => this.ivaVenta;
+  int get getPopularidad => this.popularidad;
+  bool get getDestacado => this.destacado;
+  bool get getEstado => this.estado;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setNombre(String nombre) => this._nombre = nombre;
-  set setDescripcion(String descripcion) => this._descripcion = descripcion;
-  set setCodigo(String codigo) => this._codigo = codigo;
-  set setCategoria(int categoria) => this._idCategoria = categoria;
-  set setProveedor(int proveedor) => this._idProveedor = proveedor;
-  set setFechaCreacion(DateTime fechaCreacion) =>
-      this._fechaCreacion = fechaCreacion;
-  set setStock(int stock) => this._stock = stock;
-  set setCantidadMinima(int cantidadMinima) =>
-      this._cantidadMinima = cantidadMinima;
-  set setCantidadReservada(int cantidadReservada) =>
-      this._cantidadReservada = cantidadReservada;
-  set setImagenPrincipal(String url) => this._imagenPrincipal = url;
-  set setPrecioCompra(double precioCompra) => this._precioCompra = precioCompra;
-  set setPrecioVenta(double precioVenta) => this._precioVenta = precioVenta;
-  set setIvaVenta(double ivaVenta) => this._ivaVenta = ivaVenta;
-  set setPopularidad(int popularidad) => this._popularidad = popularidad;
-  set setDestacado(bool destacado) => this._destacado = destacado;
-  set setEstado(bool estado) => this._estado = estado;
+  void setId(int id) => this.id = id;
+  void setNombre(String nombre) => this.nombre = nombre;
+  void setDescripcion(String descripcion) => this.descripcion = descripcion;
+  void setCodigo(String codigo) => this.codigo = codigo;
+  void setCategoria(Categoria categoria) => this.idCategoria = categoria;
+  void setProveedor(Proveedor proveedor) => this.idProveedor = proveedor;
+  void setFechaCreacion(DateTime fechaCreacion) =>
+      this.fechaCreacion = fechaCreacion;
+  void setStock(int stock) => this.stockMinimo = stock;
+  void setCantidadMinima(int cantidadMinima) =>
+      this.existencia = cantidadMinima;
+  void setCantidadReservada(int cantidadReservada) =>
+      this.cantidadReservada = cantidadReservada;
+  void setPrecioCompra(double precioCompra) => this.precioCompra = precioCompra;
+  void setPrecioVenta(double precioVenta) => this.precioVenta = precioVenta;
+  void setIvaVenta(double ivaVenta) => this.ivaVenta = ivaVenta;
+  void setPopularidad(int popularidad) => this.popularidad = popularidad;
+  void setDestacado(bool destacado) => this.destacado = destacado;
+  void setEstado(bool estado) => this.estado = estado;
+
+  factory Producto.fromJson(Map<String, dynamic> json) => Producto(
+        id: json["id"],
+        nombre: json["nombre"],
+        descripcion: json["descripcion"],
+        codigo: json["codigo"],
+        idCategoria: Categoria.fromJson(json["categoria"]),
+        idProveedor: Proveedor.fromJson(json["proveedor"]),
+        fechaCreacion: DateTime.parse(json["fechaCreacion"]),
+        stockMinimo: json["stockMinimo"],
+        existencia: json["existencia"],
+        cantidadReservada: json["cantidadReservada"],
+        precioCompra: json["precioCompra"],
+        precioVenta: json["precioVenta"],
+        ivaVenta: json["ivaVenta"],
+        popularidad: json["popularidad"],
+        destacado: json["destacado"],
+        estado: json["estado"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "nombre": nombre,
+        "descripcion": descripcion,
+        "codigo": codigo,
+        "categoria": idCategoria.toJson(),
+        "proveedor": idProveedor.toJson(),
+        "fechaCreacion":
+            "${fechaCreacion.year.toString().padLeft(4, '0')}-${fechaCreacion.month.toString().padLeft(2, '0')}-${fechaCreacion.day.toString().padLeft(2, '0')}",
+        "stockMinimo": stockMinimo,
+        "existencia": existencia,
+        "cantidadReservada": cantidadReservada,
+        "precioCompra": precioCompra,
+        "precioVenta": precioVenta,
+        "ivaVenta": ivaVenta,
+        "popularidad": popularidad,
+        "destacado": destacado,
+        "estado": estado,
+      };
 }
 
-// Metodos del CRUD
+// Metodos para convertir un elemento producto <-> json
 
-List<Producto>? buscarProductosPorCategoria(int idCategoria) {
-  // pensar la posibilidad de crear una estructura con las caracteristicas basicas de cada producto y no con la informacion completa
+Producto productoFromJson(String str) => Producto.fromJson(json.decode(str));
 
-  List<Producto>? listaProductos = null;
+String productoToJson(Producto data) => json.encode(data.toJson());
 
-  return listaProductos;
-}
+// Metodos para convertir una lista de producto <-> json
 
-Producto buscarProductoporId(int idProducto) {
-  Producto producto = Producto();
+List<Producto> productosFromJson(String str) =>
+    List<Producto>.from(json.decode(str).map((x) => Producto.fromJson(x)));
 
-  return producto;
-}
-
-Producto buscarProductoporCodigo(String codigo) {
-  Producto producto = Producto();
-
-  // buscar el producto
-
-  return producto;
-}
-
-List<Producto>? buscarProductoporNombre(String nombre) {
-  List<Producto>? listaProductos = null;
-
-  // buscar el producto
-
-  return listaProductos;
-}
-
-int modificarProducto(Producto producto) {
-  int estado = 0;
-
-  return estado;
-}
-
-int eliminarProducto(Producto producto) {
-  int estado = 0;
-
-  // cambia el estado del producto solamente
-
-  return estado;
-}
-
-int activaProducto(Producto producto) {
-  int estado = 0;
-
-  // cambia el estado del producto solamente
-
-  return estado;
-}
-
-int destacaProducto(Producto producto) {
-  int estado = 0;
-
-  // cambia el estado de destacado del producto
-
-  return estado;
-}
-
-// falta definir los metodos para el manejo del inventario de cada producto y sus respectivos reportes
+String productosToJson(List<Producto> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

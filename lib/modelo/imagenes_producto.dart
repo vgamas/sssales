@@ -1,53 +1,60 @@
+import 'dart:convert';
+
+import 'productos.dart';
+
 class ImagenProducto {
-  int _id = 0;
-  int _idProducto = 0;
-  String _imagen = "";
-  bool _estado = true;
+  int id;
+  Producto idProducto;
+  String urlImagen;
+  bool estado; // true = visible, false = borrada
 
   ImagenProducto(
-      {int id = 0,
-      int producto = 0,
-      String urlImagen = "",
-      bool estado = true}) {
-    this._id = id;
-    this._idProducto = producto;
-    this._imagen = urlImagen;
-    this._estado = estado;
-  }
+      {required this.id,
+      required this.idProducto,
+      required this.urlImagen,
+      required this.estado});
 
   // Getters
 
-  int get getId => this._id;
-  int get getProducto => this._idProducto;
-  String get getImagen => this._imagen;
-  bool get getEstado => this._estado;
+  int get getId => this.id;
+  Producto get getProducto => this.idProducto;
+  String get getImagen => this.urlImagen;
+  bool get getEstado => this.estado;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setProducto(int idProducto) => this._idProducto = idProducto;
-  set setImagen(String url) => this._imagen = url;
-  set setEstado(bool estado) => this._estado = estado;
+  void setId(int id) => this.id = id;
+  void setProducto(Producto idProducto) => this.idProducto = idProducto;
+  void setImagen(String url) => this.urlImagen = url;
+  void setEstado(bool estado) => this.estado = estado;
+
+  factory ImagenProducto.fromJson(Map<String, dynamic> json) => ImagenProducto(
+        id: json["id"],
+        idProducto: Producto.fromJson(json["producto"]),
+        urlImagen: json["urlImagen"],
+        estado: json["estado"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "producto": idProducto.toJson(),
+        "urlImagen": urlImagen,
+        "estado": estado,
+      };
 }
 
-List<ImagenProducto>? listarImagenesPorProduto(int idProducto) {
-  List<ImagenProducto>? listaImagenes = null;
+// Metodos para convertir un elemento de imagenProducto <-> json
 
-  // buscar las imagenes
+ImagenProducto imagenProductoFromJson(String str) =>
+    ImagenProducto.fromJson(json.decode(str));
 
-  return listaImagenes;
-}
+String imagenProductoToJson(ImagenProducto data) => json.encode(data.toJson());
 
-int agregarImagen(ImagenProducto imagen) {
-  int estado = 0;
+// Metodos para convertir una lista de elementos de imagenProducto <-> json
 
-  return estado;
-}
+List<ImagenProducto> imagenesProductoFromJson(String str) =>
+    List<ImagenProducto>.from(
+        json.decode(str).map((x) => ImagenProducto.fromJson(x)));
 
-int eliminarImagen(int idImagen) {
-  int estado = 0;
-
-  // cambiar estado de la imagen
-
-  return estado;
-}
+String imagenesProductoToJson(List<ImagenProducto> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
