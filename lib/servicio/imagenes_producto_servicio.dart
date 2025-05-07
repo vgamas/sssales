@@ -10,7 +10,7 @@ class ImagenProductoServicio {
   // Listar todas las imagenes de un producto
 
   Future<List<ImagenProducto>> listar(int idProducto) async {
-    var endPoint = "listar/${idProducto}";
+    final endPoint = "listar/${idProducto}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
 
@@ -28,7 +28,7 @@ class ImagenProductoServicio {
   // Agregar una imagen al producto
 
   Future<ImagenProducto> agregar(ImagenProducto nuevaImagen) async {
-    var endPoint = "agregar";
+    final endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
         headers: <String, String>{
@@ -50,7 +50,7 @@ class ImagenProductoServicio {
   // Eliminar una imagen buscandola por su id
 
   Future<ImagenProducto> eliminar(int idImagen) async {
-    var endPoint = "eliminar/${idImagen}";
+    final endPoint = "eliminar/${idImagen}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.delete(uri);
 
