@@ -23,7 +23,7 @@ void main(List<String> args) async {
   }
 */
 
-/*
+//*
   TipoDocumento tipodoc = TipoDocumento(id: "C", nombre: "nombre");
   Departamento dpto = Departamento(id: 1, nombre: "", codigo: 1);
   Ciudad nCiudad = Ciudad(id: 1, nombre: "", idDepartamento: dpto, codigo: 1);
@@ -40,7 +40,7 @@ void main(List<String> args) async {
       estado: true);
 
   Cliente nuevoCliente = Cliente(
-      id: 0,
+      id: 1,
       nombreCompleto: "Valentin Gamas Maldonado",
       tipoDocumento: tipodoc,
       numeroDocumento: "80414768",
@@ -76,7 +76,7 @@ void main(List<String> args) async {
       codigo: "ESF002",
       idCategoria: categoria,
       idProveedor: proveedor,
-      fechaCreacion: DateTime(2025, 5, 6),
+      fechaCreacion: DateTime(2025, 5, 7),
       stockMinimo: 4,
       existencia: 5,
       cantidadReservada: 0,
@@ -88,22 +88,21 @@ void main(List<String> args) async {
       estado: true);
 
   Carrito articulo = Carrito(
-      id: 0,
+      id: 3,
       idCliente: nuevoCliente,
       idProducto: producto,
-      cantidad: 2,
+      cantidad: 1,
       precioUnitario: 10000,
       ivaUnitario: 1900,
       fechaReserva: DateTime.now());
 
-  print(await carritoSvc.agregar(articulo));
+//`  print(await carritoSvc.agregar(articulo));
 
-  print(await carritoSvc.actualizar(articulo));
-  */
+//*/
 
-/*
-print(await carritoSvc.borrarPorId(1));
-*/
+//  print(await carritoSvc.actualizar(articulo));
+
+  print(await carritoSvc.borrarPorId(3));
 
 /*
 print(await carritoSvc.borrarPorCliente(1));

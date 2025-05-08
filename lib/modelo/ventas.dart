@@ -1,91 +1,108 @@
+import 'dart:convert';
+
+import 'clientes.dart';
+import 'medios_pago.dart';
+
 class Venta {
-  int _id = 0;
-  int _idCliente = 0;
-  DateTime _fecha = DateTime.now();
-  double _valorProductos = 0;
-  double _ivaProductos = 0;
-  int _medioPago = 0;
-  String _referenciaPago = "";
-  int _factura = 0;
-  bool _estado =
-      false; // si esta confirmado el pago de la venta = true, de lo contrario false
+  int id;
+  Cliente idCliente;
+  DateTime fecha;
+  double valorProductos;
+  double ivaProductos;
+  MedioPago idMedioPago;
+  String referenciaPago;
+  bool
+      pagada; // si esta confirmado el pago de la venta = true, de lo contrario false
+  DateTime? fechaEnvio;
+  String? empresaTransporte;
+  String? guia;
 
   Venta(
-      {int id = 0,
-      int cliente = 0,
-      DateTime? fecha,
-      double valorProductos = 0,
-      double ivaProductos = 0,
-      int medioPago = 0,
-      String referencia = "",
-      int factura = 0,
-      bool estado = false}) {
-    this._id = id;
-    this._idCliente = cliente;
-    this._fecha = fecha ?? DateTime.now();
-    this._valorProductos = valorProductos;
-    this._ivaProductos = ivaProductos;
-    this._medioPago = medioPago;
-    this._referenciaPago = referencia;
-    this._factura = factura;
-    this._estado = estado;
-  }
+      {required this.id,
+      required this.idCliente,
+      required this.fecha,
+      required this.valorProductos,
+      required this.ivaProductos,
+      required this.idMedioPago,
+      required this.referenciaPago,
+      required this.pagada,
+      required this.fechaEnvio,
+      required this.empresaTransporte,
+      required this.guia});
 
   // Getters
 
-  int get getId => this._id;
-  int get getCliente => this._idCliente;
-  DateTime get getFecha => this._fecha;
-  double get getValorProductos => this._valorProductos;
-  double get getIvaProductos => this._ivaProductos;
-  int get getMedioPago => this._medioPago;
-  String get getRefereciaPago => this._referenciaPago;
-  int get getFactura => this._factura;
-  bool get getEstado => this._estado;
+  int get getId => this.id;
+  Cliente get getCliente => this.idCliente;
+  DateTime get getFecha => this.fecha;
+  double get getValorProductos => this.valorProductos;
+  double get getIvaProductos => this.ivaProductos;
+  MedioPago get getMedioPago => this.idMedioPago;
+  String get getRefereciaPago => this.referenciaPago;
+  bool get getPagada => this.pagada;
+  DateTime? get getFechaEnvio => this.fechaEnvio;
+  String? get getEmpresaTransporte => this.empresaTransporte;
+  String? get getGuia => this.guia;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setCliente(int idCliente) => this._idCliente = idCliente;
-  set setFecha(DateTime fecha) => this._fecha = fecha;
+  set setId(int id) => this.id = id;
+  set setCliente(Cliente idCliente) => this.idCliente = idCliente;
+  set setFecha(DateTime fecha) => this.fecha = fecha;
   set setValorProductos(double valorProductos) =>
-      this._valorProductos = valorProductos;
-  set setIvaProductos(double ivaProductos) => this._ivaProductos = ivaProductos;
-  set setMedioPago(int medioPago) => this._medioPago = medioPago;
+      this.valorProductos = valorProductos;
+  set setIvaProductos(double ivaProductos) => this.ivaProductos = ivaProductos;
+  set setMedioPago(MedioPago medioPago) => this.idMedioPago = medioPago;
   set setReferenciaPago(String ReferenciaPago) =>
-      this._referenciaPago = ReferenciaPago;
-  set setFactura(int factura) => this._factura = factura;
-  set setEstado(bool estado) => this._estado = estado;
+      this.referenciaPago = ReferenciaPago;
+  set setPagada(bool estado) => this.pagada = estado;
+  set setFechaEnvio(DateTime fecha) => this.fechaEnvio = fecha;
+  set setEmpresaTransporte(String empresa) => this.empresaTransporte = empresa;
+  set setGuia(String guia) => this.guia = guia;
+
+  factory Venta.fromJson(Map<String, dynamic> json) => Venta(
+        id: json["id"],
+        idCliente: Cliente.fromJson(json["idCliente"]),
+        fecha: DateTime.parse('${json["fecha"]} ${json["hora"]}'),
+        valorProductos: json["valorProductos"],
+        ivaProductos: json["ivaProductos"],
+        idMedioPago: MedioPago.fromJson(json["idMedioPago"]),
+        referenciaPago: json["referenciaPago"],
+        pagada: json["pagada"],
+        fechaEnvio: json["fechaEnvio"],
+        empresaTransporte: json["empresaTransporte"],
+        guia: json["guia"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "idCliente": idCliente.toJson(),
+        "fecha":
+            "${fecha.year.toString().padLeft(4, '0')}-${fecha.month.toString().padLeft(2, '0')}-${fecha.day.toString().padLeft(2, '0')}",
+        "hora":
+            "${fecha.hour.toString().padLeft(2, '0')}:${fecha.minute.toString().padLeft(2, '0')}:${fecha.second.toString().padLeft(2, '0')}",
+        "valorProductos": valorProductos,
+        "ivaProductos": ivaProductos,
+        "idMedioPago": idMedioPago.toJson(),
+        "referenciaPago": referenciaPago,
+        "pagada": pagada,
+        "fechaEnvio":
+            "${fechaEnvio?.year.toString().padLeft(4, '0')}-${fechaEnvio?.month.toString().padLeft(2, '0')}-${fechaEnvio?.day.toString().padLeft(2, '0')}",
+        "empresaTransporte": empresaTransporte,
+        "guia": guia,
+      };
 }
 
-// Metodos del CRUD
+// Metodos para convertir un elemento venta <-> json
 
-List<Venta>? listarVentasPorCliente(int cliente) {
-  List<Venta>? listaVentas = null;
+Venta ventaFromJson(String str) => Venta.fromJson(json.decode(str));
 
-  return listaVentas;
-}
+String ventaToJson(Venta data) => json.encode(data.toJson());
 
-List<Venta>? listarVentasPorFecha(DateTime fechaInicial, DateTimefechaFinal) {
-  List<Venta>? listaVentas = null;
+// Metodos para convertir una lista de elemento venta <-> json
 
-  return listaVentas;
-}
+List<Venta> ventasFromJson(String str) =>
+    List<Venta>.from(json.decode(str).map((x) => Venta.fromJson(x)));
 
-Venta buscarVentaPorId(int id) {
-  Venta venta = Venta();
-
-  return venta;
-}
-
-int agregarVenta(Venta venta) {
-  int estado = 0;
-
-  return estado;
-}
-
-int confirmarPagoVenta(int idVenta) {
-  int estado = 0;
-
-  return estado;
-}
+String ventasToJson(List<Venta> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

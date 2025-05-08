@@ -90,7 +90,7 @@ class CarritoServicio {
         },
         body: carritoToJson(articulo));
 
-    if (response.statusCode == HttpStatus.created) {
+    if (response.statusCode == HttpStatus.ok) {
       return carritoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
