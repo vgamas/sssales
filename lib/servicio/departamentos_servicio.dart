@@ -9,7 +9,7 @@ class DepartamentosServicio {
 
   // Buscar un departamento por su ID
 
-  Future<Departamento> buscarPorId(int id) async {
+  Future<Departamento?> buscarPorId(int id) async {
     final String endPoint = "id/${id}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -18,16 +18,18 @@ class DepartamentosServicio {
       return dptoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay departamentos para mostrar");
+        print("No hay departamentos para mostrar");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Trae la lista de todos los departamentos que se encuentran en la base
 
-  Future<List<Departamento>> listarDepartamentos() async {
+  Future<List<Departamento>?> listarDepartamentos() async {
     final String endPoint = "listar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -36,16 +38,18 @@ class DepartamentosServicio {
       return departamentoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay departamentos para mostrar");
+        print("No hay departamentos para mostrar");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Trae la lista de todos los departamentos que se cumplen con una porcion del nombre
 
-  Future<List<Departamento>> buscarPorNombre(String nombre) async {
+  Future<List<Departamento>?> buscarPorNombre(String nombre) async {
     final String endPoint = "nombre/${nombre}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -54,16 +58,18 @@ class DepartamentosServicio {
       return departamentoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay departamentos para mostrar");
+        print("No hay departamentos para mostrar");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Agregar un nuevo departamento
 
-  Future<Departamento> agregar(Departamento nDpto) async {
+  Future<Departamento?> agregar(Departamento nDpto) async {
     final String endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
@@ -76,16 +82,19 @@ class DepartamentosServicio {
       return dptoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("un departamento con ese código: ${nDpto.getCodigo} o nombre: ${nDpto.getNombre} ya se encuentra en la base de datos");
+        print(
+            "un departamento con ese código: ${nDpto.getCodigo} o nombre: ${nDpto.getNombre} ya se encuentra en la base de datos");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Acturalizar un departamento
 
-  Future<Departamento> actualizar(Departamento nDpto) async {
+  Future<Departamento?> actualizar(Departamento nDpto) async {
     final String endPoint = "actualizar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri,
@@ -102,14 +111,18 @@ class DepartamentosServicio {
       return dptoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("un departamento con ese código: ${nDpto.getCodigo} o nombre: ${nDpto.getNombre} ya se encuentra en la base de datos");
+        print(
+            "un departamento con ese código: ${nDpto.getCodigo} o nombre: ${nDpto.getNombre} ya se encuentra en la base de datos");
       } else {
         if (response.statusCode == HttpStatus.notFound) {
-          throw ("Ese codigo de departamento: ${nDpto.getCodigo} no se encuentra en la base de datos");
+          print(
+              "Ese codigo de departamento: ${nDpto.getCodigo} no se encuentra en la base de datos");
         } else {
-          throw ("Error desconocido, codigo ${response.statusCode}");
+          print("Error desconocido, codigo ${response.statusCode}");
         }
       }
     }
+
+    return null;
   }
 }

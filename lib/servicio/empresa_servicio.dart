@@ -4,13 +4,12 @@ import 'package:http/http.dart' as http;
 import 'conexion.dart';
 import '../modelo/empresa.dart';
 
-
 class EmpresaServicio {
   final String _prefijo = "empresa/";
 
   // Traer la informacion de la empresa
 
-  Future<Empresa> traer() async {
+  Future<Empresa?> traer() async {
     final String endPoint = "traer";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -19,62 +18,66 @@ class EmpresaServicio {
       return empresaFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay Tipos de documento registrados");
+        print("No hay Tipos de documento registrados");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Agregar una empresa cuando no hay una ya creada
 
-  Future<Empresa> agregar(Empresa nEmpresa) async {
+  Future<Empresa?> agregar(Empresa nEmpresa) async {
     final String endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
-              headers: <String, String>{
+        headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: empresaToJson(nEmpresa)
-    );
+        body: empresaToJson(nEmpresa));
 
     if (response.statusCode == HttpStatus.created) {
       return empresaFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Ya existe una empresa creada");
+        print("Ya existe una empresa creada");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Actualiza la informacion de la empresa cuando ya hay una creada
 
-  Future<Empresa> actualizar(Empresa nEmpresa) async {
+  Future<Empresa?> actualizar(Empresa nEmpresa) async {
     final String endPoint = "actualizar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri,
-              headers: <String, String>{
+        headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: empresaToJson(nEmpresa)
-    );
+        body: empresaToJson(nEmpresa));
 
     if (response.statusCode == HttpStatus.ok) {
       return empresaFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay una empresa creada");
+        print("No hay una empresa creada");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Actualiza solamente el estado de la empresa
 
-  Future<Empresa> actualizarEstado(bool nEstado) async {
+  Future<Empresa?> actualizarEstado(bool nEstado) async {
     final String endPoint = "estado/${nEstado}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri);
@@ -83,11 +86,12 @@ class EmpresaServicio {
       return empresaFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay una empresa creada");
+        print("No hay una empresa creada");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
-  }
 
+    return null;
+  }
 }

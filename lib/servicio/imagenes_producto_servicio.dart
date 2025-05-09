@@ -9,7 +9,7 @@ class ImagenProductoServicio {
 
   // Listar todas las imagenes de un producto
 
-  Future<List<ImagenProducto>> listar(int idProducto) async {
+  Future<List<ImagenProducto>?> listar(int idProducto) async {
     final endPoint = "listar/${idProducto}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -18,16 +18,18 @@ class ImagenProductoServicio {
       return imagenesProductoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay imagenes para el producto id: ${idProducto}");
+        print("No hay imagenes para el producto id: ${idProducto}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Agregar una imagen al producto
 
-  Future<ImagenProducto> agregar(ImagenProducto nuevaImagen) async {
+  Future<ImagenProducto?> agregar(ImagenProducto nuevaImagen) async {
     final endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
@@ -40,16 +42,19 @@ class ImagenProductoServicio {
       return imagenProductoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay creado un producto con ese id: ${nuevaImagen.getProducto.getId}");
+        print(
+            "No hay creado un producto con ese id: ${nuevaImagen.getProducto.getId}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Eliminar una imagen buscandola por su id
 
-  Future<ImagenProducto> eliminar(int idImagen) async {
+  Future<ImagenProducto?> eliminar(int idImagen) async {
     final endPoint = "eliminar/${idImagen}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.delete(uri);
@@ -58,10 +63,12 @@ class ImagenProductoServicio {
       return imagenProductoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay imagen de un producto con ese id: ${idImagen}");
+        print("No hay imagen de un producto con ese id: ${idImagen}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 }

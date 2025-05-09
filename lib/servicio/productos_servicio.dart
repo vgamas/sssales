@@ -9,7 +9,7 @@ class ProductoServicio {
 
   // Buscar los productos de una categoria
 
-  Future<List<Producto>> buscarPorCategoria(int idCategoria) async {
+  Future<List<Producto>?> buscarPorCategoria(int idCategoria) async {
     final String endPoint = "categoria/${idCategoria}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -18,16 +18,18 @@ class ProductoServicio {
       return productosFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay productos para la categoria id: ${idCategoria}");
+        print("No hay productos para la categoria id: ${idCategoria}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Buscar los productos por su nombre en todas las categorias
 
-  Future<List<Producto>> buscarPorNombre(String nombre) async {
+  Future<List<Producto>?> buscarPorNombre(String nombre) async {
     final String endPoint = "nombre/${nombre}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -36,16 +38,18 @@ class ProductoServicio {
       return productosFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay productos con ese nombre: ${nombre}");
+        print("No hay productos con ese nombre: ${nombre}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Buscar todos los productos de un proveedor
 
-  Future<List<Producto>> buscarPorProveedor(int idProveedor) async {
+  Future<List<Producto>?> buscarPorProveedor(int idProveedor) async {
     final String endPoint = "proveedor/${idProveedor}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -54,16 +58,18 @@ class ProductoServicio {
       return productosFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay productos de ese proveedor codigo: ${idProveedor}");
+        print("No hay productos de ese proveedor codigo: ${idProveedor}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Buscar todos los productos que aparecen como destacados
 
-  Future<List<Producto>> buscarDestacados() async {
+  Future<List<Producto>?> buscarDestacados() async {
     final String endPoint = "destacados";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -72,16 +78,18 @@ class ProductoServicio {
       return productosFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay productos destacados actualmente");
+        print("No hay productos destacados actualmente");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Buscar un producto por su codigo
 
-  Future<Producto> buscarPorCodigo(String codigo) async {
+  Future<Producto?> buscarPorCodigo(String codigo) async {
     final String endPoint = "codigo/${codigo}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -90,16 +98,18 @@ class ProductoServicio {
       return productoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay productos creados con ese codigo: {$codigo}");
+        print("No hay productos creados con ese codigo: {$codigo}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Agragar un producto nuevo
 
-  Future<Producto> agregar(Producto nuevoProducto) async {
+  Future<Producto?> agregar(Producto nuevoProducto) async {
     final String endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
@@ -112,16 +122,19 @@ class ProductoServicio {
       return productoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Ya existe un producto creado con ese codigo: ${nuevoProducto.getCodigo}");
+        print(
+            "Ya existe un producto creado con ese codigo: ${nuevoProducto.getCodigo}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Actualizar un producto
 
-  Future<Producto> actualizar(Producto producto) async {
+  Future<Producto?> actualizar(Producto producto) async {
     final String endPoint = "actualizar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri,
@@ -134,20 +147,22 @@ class ProductoServicio {
       return productoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("Ya existe un producto creado con ese id: ${producto.getId}");
+        print("Ya existe un producto creado con ese id: ${producto.getId}");
       } else {
         if (response.statusCode == HttpStatus.alreadyReported) {
-          throw ("Ya existe otro producto con ese codigo ${producto.getCodigo}");
+          print("Ya existe otro producto con ese codigo ${producto.getCodigo}");
         } else {
-          throw ("Error desconocido, codigo ${response.statusCode}");
+          print("Error desconocido, codigo ${response.statusCode}");
         }
       }
     }
+
+    return null;
   }
 
   // Eliminar un producto
 
-  Future<Producto> eliminar(int idProducto) async {
+  Future<Producto?> eliminar(int idProducto) async {
     final String endPoint = "eliminar/${idProducto}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.delete(uri);
@@ -156,10 +171,12 @@ class ProductoServicio {
       return productoFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No existe un producto creado con ese id: ${idProducto}");
+        print("No existe un producto creado con ese id: ${idProducto}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 }

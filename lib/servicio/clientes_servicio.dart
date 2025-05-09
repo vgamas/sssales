@@ -9,7 +9,7 @@ class ClienteServicio {
 
   // Buscar el cliente que corresponde a un usuario
 
-  Future<Cliente> buscarPorUsuario(int idUsuario) async {
+  Future<Cliente?> buscarPorUsuario(int idUsuario) async {
     final String endPoint = "usuario/${idUsuario}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -18,16 +18,18 @@ class ClienteServicio {
       return clienteFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay un cliente asociado a ese id de usuario: ${idUsuario}");
+        print("No hay un cliente asociado a ese id de usuario: ${idUsuario}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Buscar el cliente por su Id
 
-  Future<Cliente> buscarPorId(int idCliente) async {
+  Future<Cliente?> buscarPorId(int idCliente) async {
     final String endPoint = "id/${idCliente}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -36,16 +38,18 @@ class ClienteServicio {
       return clienteFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay un cliente asociado a ese id: ${idCliente}");
+        print("No hay un cliente asociado a ese id: ${idCliente}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Buscar Clientes por su nombre
 
-  Future<List<Cliente>> buscarPorNombre(String nombre) async {
+  Future<List<Cliente>?> buscarPorNombre(String nombre) async {
     final String endPoint = "nombre/${nombre}";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.get(uri);
@@ -54,16 +58,18 @@ class ClienteServicio {
       return clientesFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.notFound) {
-        throw ("No hay clientes con ese nombre: ${nombre}");
+        print("No hay clientes con ese nombre: ${nombre}");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Agregar un nuevo cliente
 
-  Future<Cliente> agregar(Cliente nuevoCliente) async {
+  Future<Cliente?> agregar(Cliente nuevoCliente) async {
     final String endPoint = "agregar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.post(uri,
@@ -76,16 +82,19 @@ class ClienteServicio {
       return clienteFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Error al crear el cliente, documento, correo, celular o usuario ya creados anteriormente");
+        print(
+            "Error al crear el cliente, documento, correo, celular o usuario ya creados anteriormente");
       } else {
-        throw ("Error desconocido, codigo ${response.statusCode}");
+        print("Error desconocido, codigo ${response.statusCode}");
       }
     }
+
+    return null;
   }
 
   // Actualizar un cliente
 
-  Future<Cliente> actualizar(Cliente nuevoCliente) async {
+  Future<Cliente?> actualizar(Cliente nuevoCliente) async {
     final String endPoint = "actualizar";
     var uri = Uri.parse(url + _prefijo + endPoint);
     var response = await http.put(uri,
@@ -98,14 +107,17 @@ class ClienteServicio {
       return clienteFromJson(response.body);
     } else {
       if (response.statusCode == HttpStatus.alreadyReported) {
-        throw ("Error al actualizar el cliente, documento, correo, celular o usuario ya creados anteriormente");
+        print(
+            "Error al actualizar el cliente, documento, correo, celular o usuario ya creados anteriormente");
       } else {
         if (response.statusCode == HttpStatus.notFound) {
-          throw ("No existe un cliente con ese id: ${nuevoCliente.getId}");
+          print("No existe un cliente con ese id: ${nuevoCliente.getId}");
         } else {
-          throw ("Error desconocido, codigo ${response.statusCode}");
+          print("Error desconocido, codigo ${response.statusCode}");
         }
       }
     }
+
+    return null;
   }
 }
