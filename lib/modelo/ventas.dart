@@ -10,7 +10,7 @@ class Venta {
   double valorProductos;
   double ivaProductos;
   MedioPago idMedioPago;
-  String referenciaPago;
+  String? referenciaPago;
   bool
       pagada; // si esta confirmado el pago de la venta = true, de lo contrario false
   DateTime? fechaEnvio;
@@ -38,7 +38,7 @@ class Venta {
   double get getValorProductos => this.valorProductos;
   double get getIvaProductos => this.ivaProductos;
   MedioPago get getMedioPago => this.idMedioPago;
-  String get getRefereciaPago => this.referenciaPago;
+  String? get getRefereciaPago => this.referenciaPago;
   bool get getPagada => this.pagada;
   DateTime? get getFechaEnvio => this.fechaEnvio;
   String? get getEmpresaTransporte => this.empresaTransporte;
@@ -67,11 +67,13 @@ class Venta {
         valorProductos: json["valorProductos"],
         ivaProductos: json["ivaProductos"],
         idMedioPago: MedioPago.fromJson(json["idMedioPago"]),
-        referenciaPago: json["referenciaPago"],
+        referenciaPago: json["referenciaPago"] ?? "",
         pagada: json["pagada"],
-        fechaEnvio: json["fechaEnvio"],
-        empresaTransporte: json["empresaTransporte"],
-        guia: json["guia"],
+        fechaEnvio: json["fechaEnvio"] == null
+            ? null
+            : DateTime.parse(json["fechaEnvio"]),
+        empresaTransporte: json["empresaTransporte"] ?? "",
+        guia: json["guia"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -86,8 +88,9 @@ class Venta {
         "idMedioPago": idMedioPago.toJson(),
         "referenciaPago": referenciaPago,
         "pagada": pagada,
-        "fechaEnvio":
-            "${fechaEnvio?.year.toString().padLeft(4, '0')}-${fechaEnvio?.month.toString().padLeft(2, '0')}-${fechaEnvio?.day.toString().padLeft(2, '0')}",
+        "fechaEnvio": fechaEnvio == null
+            ? null
+            : "${fechaEnvio?.year.toString().padLeft(4, '0')}-${fechaEnvio?.month.toString().padLeft(2, '0')}-${fechaEnvio?.day.toString().padLeft(2, '0')}",
         "empresaTransporte": empresaTransporte,
         "guia": guia,
       };

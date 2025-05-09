@@ -1,58 +1,73 @@
+import 'dart:convert';
+
+import '../modelo/ventas.dart';
+import '../modelo/productos.dart';
+
 class DetalleVenta {
-  int _id = 0;
-  int _idVenta = 0;
-  int _idProducto = 0;
-  int _cantidad = 0;
-  double _precioUnitario = 0;
-  double _ivaUnitario = 0;
+  int id = 0;
+  Venta idVenta;
+  Producto idProducto;
+  int cantidad;
+  double precioUnitario;
+  double ivaUnitario;
 
   DetalleVenta(
-      {int id = 0,
-      int idVenta = 0,
-      int idProducto = 0,
-      int cantidad = 0,
-      double precioUnitario = 0,
-      double ivaUnitario = 0}) {
-    this._id = id;
-    this._idVenta = _idVenta;
-    this._idProducto = idProducto;
-    this._cantidad = cantidad;
-    this._precioUnitario = precioUnitario;
-    this._ivaUnitario = ivaUnitario;
-  }
+      {required this.id,
+      required this.idVenta,
+      required this.idProducto,
+      required this.cantidad,
+      required this.precioUnitario,
+      required this.ivaUnitario});
 
   // Getters
 
-  int get getId => this._id;
-  int get getIdVenta => this._idVenta;
-  int get getIdProducto => this._idProducto;
-  int get getCantidad => this._cantidad;
-  double get getPrecioUnitario => this._precioUnitario;
-  double get getIvaUnitario => this._ivaUnitario;
+  int get getId => this.id;
+  Venta get getIdVenta => this.idVenta;
+  Producto get getIdProducto => this.idProducto;
+  int get getCantidad => this.cantidad;
+  double get getPrecioUnitario => this.precioUnitario;
+  double get getIvaUnitario => this.ivaUnitario;
 
   // Setters
 
-  set setId(int id) => this._id = id;
-  set setIdVenta(int idVenta) => this._idVenta = idVenta;
-  set setIdProducto(int idProducto) => this._idProducto = idProducto;
-  set setCantidad(int cantidad) => this._cantidad = cantidad;
-  set setPrecioUnitario(double precioUnitario) =>
-      this._precioUnitario = precioUnitario;
-  set setIvaUnitario(double iva) => this._ivaUnitario = iva;
+  void setId(int id) => this.id = id;
+  void setIdVenta(Venta idVenta) => this.idVenta = idVenta;
+  void setIdProducto(Producto idProducto) => this.idProducto = idProducto;
+  void setCantidad(int cantidad) => this.cantidad = cantidad;
+  void setPrecioUnitario(double precioUnitario) =>
+      this.precioUnitario = precioUnitario;
+  void setIvaUnitario(double iva) => this.ivaUnitario = iva;
+
+  factory DetalleVenta.fromJson(Map<String, dynamic> json) => DetalleVenta(
+        id: json["id"],
+        idVenta: Venta.fromJson(json["idVenta"]),
+        idProducto: Producto.fromJson(json["idProducto"]),
+        cantidad: json["cantidad"],
+        precioUnitario: json["precioUnitario"],
+        ivaUnitario: json["ivaUnitario"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "idVenta": idVenta.toJson(),
+        "idProducto": idProducto.toJson(),
+        "cantidad": cantidad,
+        "precioUnitario": precioUnitario,
+        "ivaUnitario": ivaUnitario,
+      };
 }
 
-// Metodos del CRUD
+// Metodos para convertir un elemento de estructura DetalleVenta <-> json
 
-List<DetalleVenta>? detalleVentaPorVenta(int venta) {
-  List<DetalleVenta>? detalleVenta = null;
+DetalleVenta detalleVentaFromJson(String str) =>
+    DetalleVenta.fromJson(json.decode(str));
 
-  return detalleVenta;
-}
+String detalleVentaToJson(DetalleVenta data) => json.encode(data.toJson());
 
-int agregarDetalleVenta(DetalleVenta detalle) {
-  int estado = 0;
+// Metodos para convertir una lista de elementos de estructura DetalleVenta <-> json
 
-  return estado;
-}
+List<DetalleVenta> detallesVentaFromJson(String str) => List<DetalleVenta>.from(
+    json.decode(str).map((x) => DetalleVenta.fromJson(x)));
 
-void borrarDetalleVenta(int idVenta) {}
+String detallesVentaToJson(List<DetalleVenta> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
