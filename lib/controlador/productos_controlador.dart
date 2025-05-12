@@ -80,8 +80,20 @@ void main(List<String> args) async {
   // Busca un producto por su codigo
 
   Producto? producto = await productoSvc.buscarPorCodigo("esdy001");
-//  print(producto.toJson());
 
+  if (producto == null) {
+    // No hay producto, se mostro el mensaje correspondiente y no se puede continuar
+  } else {
+    // Trae un producto con ese codigo
+    print(producto.toJson());
+  }
+*/
+
+/*
+  // Para agregar un producto, hay que tener la categoria y el proveedor
+  // En ambos casos solo es improtante tener el id, pero se debe tener la estructura completa
+
+  // Se crea la estructura con el id de la categoria
   Categoria categoria = Categoria(
       id: 1,
       nombre: "",
@@ -89,14 +101,18 @@ void main(List<String> args) async {
       color: "",
       urlImagen: "",
       estado: true);
+
+  // Se crea la estrctura con el id del proveedor
   Proveedor proveedor =
       Proveedor(id: 1, nombre: "", contacto: "", telefono: 0, celular: 0);
 
+  // Se crea el producto, con el id en 0 si es un producto nuevo
+
   Producto producto = Producto(
-      id: 2,
+      id: 0,
       nombre: "Otro esfero de colores",
       descripcion: "Otro esfero sin marca de varios colores",
-      codigo: "ESF002",
+      codigo: "ESF003",
       idCategoria: categoria,
       idProveedor: proveedor,
       fechaCreacion: DateTime(2025, 5, 6),
@@ -110,9 +126,50 @@ void main(List<String> args) async {
       destacado: true,
       estado: true);
 
-//  print(await productoSvc.agregar(producto));
+  Producto? nuevoProducto = await productoSvc.agregar(producto);
 
-  //print(await productoSvc.actualizar(producto));
+  if (nuevoProducto == null) {
+    // Hubo un error al agregar el producto y se mostro el error
+  } else {
+    // producto agregado correctamente, el registro ya trae el id
+    print(nuevoProducto.toJson());
+  }
+*/
 
-  //print(await productoSvc.eliminar(2));
+/*
+  // Para actualizar un producto, ya se debe tener y no cambiar el id
+
+  Producto? producto = await productoSvc.buscarPorCodigo("ESF002");
+
+  if (producto == null) {
+    // No se encontro el producto, ya se mostro el mensaje de error, no se puede continuar
+  } else {
+    // Si se encontro el producto y se pueden actualizar
+    // Se cambian los campos que introduzca el usuario
+    producto.setCantidadMinima(3);
+    // ....
+
+    Producto? productoActualizado = await productoSvc.actualizar(producto);
+
+    if (productoActualizado == null) {
+      // hubo un error al actualizar el producto y ya se mostro el mensaje
+    } else {
+      // Mostrar el mensaje de producto actualizado
+      print(productoActualizado.toJson());
+    }
+  }
+*/
+
+/*
+  // Para eliminar un producto, ya se debe tener y se usa el id. Esto solo cambia el estado del producto a false
+
+  Producto? productoEliminado = await productoSvc.eliminar(2);
+
+  if (productoEliminado == null) {
+    // Hubo un error al eliminar el producto
+  } else {
+    // Mostrar el mensaje de producto eliminado
+    print(productoEliminado.toJson());
+  }
+*/
 }
