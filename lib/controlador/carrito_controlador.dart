@@ -50,7 +50,7 @@ void main(List<String> args) async {
 
   Carrito articulo = Carrito(
       id:
-          3, // Cuando se va a crear un nuevo articulo este campo va en 0, para modificar y borrar si se necesita este id
+          0, // Cuando se va a crear un nuevo articulo este campo va en 0, para modificar y borrar si se necesita este id
       idCliente: nuevoCliente!,
       idProducto: producto!,
       cantidad:
@@ -61,26 +61,59 @@ void main(List<String> args) async {
 //*/
 
 /* 
-  // Para agregar un producto al carrito se usa lo anterior
+  // Para agregar un producto al carrito se usa lo anterior, el id debe estar en 0
 
-  print(await carritoSvc.agregar(articulo));
+  Carrito? nuevoArticulo = await carritoSvc.agregar(articulo);
+
+  // Si se presenta un error, nuevoArticulo tiene valor null, de lo contrario tiene el nuevo articulo
+
+  if (nuevoArticulo == null) {
+    // Se presento un error y se mostro el error, no se puede continuar
+  } else {
+    // se muestra un mensaje de almacenamiento correcto y se continua
+    print(nuevoArticulo.toJson());
+  }
 */
 
 /* 
-  // Para actualizar un producto del carrito se usa lo anterior
+  // Para actualizar un producto del carrito se usa lo anterior, pero el id debe corresponder al articulo a actualizar
+  Carrito? nuevoArticulo = await carritoSvc.articulo(articulo);
 
-  print(await carritoSvc.actualizar(articulo));
+  // Si se presenta un error, nuevoArticulo tiene valor null, de lo contrario tiene el nuevo articulo
+
+  if (nuevoArticulo == null) {
+    // Se presento un error y se mostro el error, no se puede continuar
+  } else {
+    // se muestra un mensaje de almacenamiento correcto y se continua
+    print(nuevoArticulo.toJson());
+  }
+
 */
 
 /*
-  // Para borrar un producto del carrito solo hay que saber el id del que selecciono el cliente
+  // Para borrar un producto del carrito solo hay que saber el id del articulo que selecciono el cliente
 
-  print(await carritoSvc.borrarPorId(3));
+  Carrito? articuloBorrado = await carritoSvc.borrarPorId(3);
+
+  if (articuloBorrado == null) {
+    // Hubo un problema y se mostro el error
+  } else {
+    // informar que se pudo borrar el articulo
+    print(articuloBorrado.toJson());
+  }
 */
 
 /*
   // Para borrar todos los articulos del carrito del cliente solo se necesita el id del cliente
 
-  print(await carritoSvc.borrarPorCliente(1));
+  Carrito? articuloBorrado = await carritoSvc.borrarPorCliente(1);
+
+  if (articuloBorrado == null) {
+    // Hubo un problema y se mostro el error
+  } else {
+    // informar que se pudo borrar el articulo
+    print(articuloBorrado.toJson());
+  }
+
 */
 }

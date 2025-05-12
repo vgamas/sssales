@@ -28,6 +28,26 @@ class MensajeServicio {
     return null;
   }
 
+  // buscar un mensaje por su id
+
+  Future<Mensaje?> buscarPorId(int idMensaje) async {
+    final String endPoint = "id/${idMensaje}";
+    var uri = Uri.parse(url + _prefijo + endPoint);
+    var response = await http.get(uri);
+
+    if (response.statusCode == HttpStatus.ok) {
+      return mensajeFromJson(response.body);
+    } else {
+      if (response.statusCode == HttpStatus.notFound) {
+        print("No hay un mensaje enviados o recibidos con ese id ${idMensaje}");
+      } else {
+        print("Error desconocido, codigo ${response.statusCode}");
+      }
+    }
+
+    return null;
+  }
+
   // Listar todos los mensajes entre dos usuarios
 
   Future<List<Mensaje>?> listarEntreUsuarios(
@@ -110,6 +130,28 @@ class MensajeServicio {
       return mensajeFromJson(response.body);
     } else {
       print("Error desconocido, codigo ${response.statusCode}");
+    }
+
+    return null;
+  }
+
+  // Marcar un mensaje como leido
+
+  Future<Mensaje?> mensajeLeido(int idMensaje) async {
+    final String endPoint = "leido/${idMensaje}";
+    var uri = Uri.parse(url + _prefijo + endPoint);
+    var response = await http.put(uri, headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      return mensajeFromJson(response.body);
+    } else {
+      if (response.statusCode == HttpStatus.notFound) {
+        print("No se encontro el mensaje con id: ${idMensaje}");
+      } else {
+        print("Error desconocido, codigo ${response.statusCode}");
+      }
     }
 
     return null;

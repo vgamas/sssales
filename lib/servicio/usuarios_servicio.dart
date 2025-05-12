@@ -85,4 +85,23 @@ class UsuarioServicio {
 
     return null;
   }
+
+  // Buscar un usuario por su id
+  Future<Usuario?> buscarPorId(int idUsuario) async {
+    final String endPoint = "id=${idUsuario}";
+    var uri = Uri.parse(url + _prefijo + endPoint);
+    var response = await http.get(uri);
+
+    if (response.statusCode == HttpStatus.ok) {
+      return usuarioFromJson(response.body);
+    } else {
+      if (response.statusCode == HttpStatus.notFound) {
+        print("No hay usuario con ese id: ${idUsuario}");
+      } else {
+        print("Error desconocido, codigo ${response.statusCode}");
+      }
+    }
+
+    return null;
+  }
 }

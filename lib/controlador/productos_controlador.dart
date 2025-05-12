@@ -1,42 +1,85 @@
-import '../modelo/productos.dart';
-import '../servicio/productos_servicio.dart';
+// Archivos que contiene las estructura y metodos basicos de las tablas a utilizar
 
+import '../modelo/productos.dart';
 import '../modelo/categorias.dart';
 import '../modelo/proveedores.dart';
 
-List<Producto> listaProductos = [];
+// Archivos con los servicios de acceso a la base de datos para cada tabla requerida
+
+import '../servicio/productos_servicio.dart';
+
+// Se usa al utilizar una lista de productos, se usa la ? por si la funcion de consulta retorna null (no hay nada para retornar)
+
+List<Producto>? listaProductos = [];
+
+// Estas son las variables de las clases que permiten llamar a los sercicios de acceso a las tablas de la base de datos
 
 ProductoServicio productoSvc = ProductoServicio();
 
 void main(List<String> args) async {
 /*
+  // Lista todos los productos que pertenecen a una categoria, se pasa el id de la categoria
+
   listaProductos = await productoSvc.buscarPorCategoria(1);
-  for (Producto elemento in listaProductos) {
-    print(elemento.toJson());
+
+  if (listaProductos == null) {
+    // no se encontraton productos y la lista esta en null, y ya se mostro el error
+  } else {
+    // Si la lista tiene elementos, se muestran
+    for (Producto elemento in listaProductos!) {
+      print(elemento.toJson());
+    }
   }
-  */
+*/
 
 /*
+  // Lista los productos que cumplen con el patron del nombre, sin importar la categoria
+
   listaProductos = await productoSvc.buscarPorNombre("esfero");
-  for (Producto elemento in listaProductos) {
-    print(elemento.toJson());
+
+  if (listaProductos == null) {
+    // no se encontraton productos y la lista esta en null, y ya se mostro el error
+  } else {
+    // Si la lista tiene elementos, se muestran
+    for (Producto elemento in listaProductos!) {
+      print(elemento.toJson());
+    }
+  }
+*/
+
+/*
+  // Lista todos los productos de un proveedor, se pasa el id del proveedor
+
+  listaProductos = await productoSvc.buscarPorProveedor(1);
+
+  if (listaProductos == null) {
+    // no se encontraton productos y la lista esta en null, y ya se mostro el error
+  } else {
+    // Si la lista tiene elementos, se muestran
+    for (Producto elemento in listaProductos!) {
+      print(elemento.toJson());
+    }
   }
   */
 
 /*
-  listaProductos = await productoSvc.buscarPorProveedor(1);
-  for (Producto elemento in listaProductos) {
-    print(elemento.toJson());
-  }
-  */
+  // Lista lo productos marcados como destacados
 
-/*  listaProductos = await productoSvc.buscarDestacados();
-  for (Producto elemento in listaProductos) {
-    print(elemento.toJson());
+  listaProductos = await productoSvc.buscarDestacados();
+    if (listaProductos == null) {
+    // no se encontraton productos y la lista esta en null, y ya se mostro el error
+  } else {
+    // Si la lista tiene elementos, se muestran
+    for (Producto elemento in listaProductos!) {
+      print(elemento.toJson());
+    }
   }
-  */
+*/
 
-//  Producto producto = await productoSvc.buscarPorCodigo("esdy001");
+/*
+  // Busca un producto por su codigo
+
+  Producto? producto = await productoSvc.buscarPorCodigo("esdy001");
 //  print(producto.toJson());
 
   Categoria categoria = Categoria(

@@ -1,10 +1,16 @@
+// Archivos que contiene las estructura y metodos basicos de las tablas a utilizar
+
 import '../modelo/detalle_ventas.dart';
 import '../modelo/ventas.dart';
 import '../modelo/productos.dart';
 
+// Archivos con los servicios de acceso a la base de datos para cada tabla requerida
+
 import '../servicio/detalle_ventas_servicio.dart';
 import '../servicio/ventas_servicio.dart';
 import '../servicio/productos_servicio.dart';
+
+// Estas son las variables de las clases que permiten llamar a los sercicios de acceso a las tablas de la base de datos
 
 DetalleVentasServicio detalleSvc = DetalleVentasServicio();
 
