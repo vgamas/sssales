@@ -9,9 +9,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.orange,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white70,
+        ),
+      ),
+      home: const HomeScreen(),
+      routes: {
+        '/papeleria': (context) => const CategoryScreen(title: 'Papelería Básica'),
+        '/escritura': (context) => const CategoryScreen(title: 'Escritura y Dibujo'),
+        '/manualidades': (context) => const CategoryScreen(title: 'Manualidades'),
+        '/planificacion': (context) => const CategoryScreen(title: 'Planificación'),
+        '/decoracion': (context) => const CategoryScreen(title: 'Decoración'),
+        '/proyectos': (context) => const CategoryScreen(title: 'Proyectos'),
+        '/regalos': (context) => const CategoryScreen(title: 'Regalos'),
+        '/temporada': (context) => const CategoryScreen(title: 'Temporada'),
+        '/ecologica': (context) => const CategoryScreen(title: 'Ecológica'),
+        '/arteDigital': (context) => const CategoryScreen(title: 'Arte Digital'),
+      },
     );
   }
 }
@@ -30,11 +50,12 @@ class HomeScreen extends StatelessWidget {
             hintText: "Productos",
             prefixIcon: const Icon(Icons.search, color: Colors.orange),
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.grey[100],
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30),
-              borderSide: const BorderSide(color: Colors.orange),
+              borderSide: BorderSide.none,
             ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 0),
           ),
         ),
         actions: [
@@ -65,22 +86,21 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Seleccionado para ti"),
+                  Text("Seleccionado para ti", style: TextStyle(fontWeight: FontWeight.bold)),
                   Text("Novedades", style: TextStyle(color: Colors.grey)),
                 ],
               ),
             ),
-            // GridView con las categorías de papelería
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Dos columnas
-                childAspectRatio: 1.2, // Relación de aspecto
+                crossAxisCount: 2,
+                childAspectRatio: 1.2,
               ),
               itemCount: categorias.length,
               itemBuilder: (context, index) {
-                return _buildCategoryCard(categorias[index]);
+                return _buildCategoryCard(context, categorias[index]);
               },
             ),
             const Padding(
@@ -88,64 +108,177 @@ class HomeScreen extends StatelessWidget {
               child: Text("Más vendidos", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
             SizedBox(
-              height: 100,
+              height: 120,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 3,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: 5,
                 itemBuilder: (context, index) {
                   return Container(
-                    width: 80,
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    width: 100,
+                    margin: const EdgeInsets.only(right: 12),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.orange,
+                      color: Colors.orange[100],
+                      border: Border.all(color: Colors.orange),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.star, color: Colors.orange, size: 30),
+                        const SizedBox(height: 8),
+                        Text("Producto ${index + 1}", style: const TextStyle(fontSize: 12)),
+                      ],
                     ),
                   );
                 },
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Comprar"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_basket), label: "Cesta"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Mi Cuenta"),
         ],
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
+        onTap: (index) {
+          // Navegación del BottomNavigationBar
+          if (index == 1) {
+            Navigator.pushNamed(context, '/comprar');
+          } else if (index == 2) {
+            Navigator.pushNamed(context, '/cesta');
+          } else if (index == 3) {
+            Navigator.pushNamed(context, '/cuenta');
+          }
+        },
       ),
     );
   }
 
-  // Método para construir una tarjeta de categoría
-  Widget _buildCategoryCard(Categoria categoria) {
+  Widget _buildCategoryCard(BuildContext context, Categoria categoria) {
     return Card(
-      elevation: 4,
+      elevation: 2,
       margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
       child: InkWell(
         onTap: () {
-          // Acción al tocar la tarjeta
+          // Navegación a la pantalla de categoría correspondiente
+          switch (categoria.titulo) {
+            case "Papelería básica":
+              Navigator.pushNamed(context, '/papeleria');
+              break;
+            case "Escritura y dibujo":
+              Navigator.pushNamed(context, '/escritura');
+              break;
+            case "Manualidades":
+              Navigator.pushNamed(context, '/manualidades');
+              break;
+            case "Planificación":
+              Navigator.pushNamed(context, '/planificacion');
+              break;
+            case "Decoración":
+              Navigator.pushNamed(context, '/decoracion');
+              break;
+            case "Proyectos":
+              Navigator.pushNamed(context, '/proyectos');
+              break;
+            case "Regalos":
+              Navigator.pushNamed(context, '/regalos');
+              break;
+            case "Temporada":
+              Navigator.pushNamed(context, '/temporada');
+              break;
+            case "Ecológica":
+              Navigator.pushNamed(context, '/ecologica');
+              break;
+            case "Arte digital":
+              Navigator.pushNamed(context, '/arteDigital');
+              break;
+          }
         },
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.orange[50]!,
+                Colors.orange[100]!,
+              ],
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(categoria.icon, size: 40, color: Colors.orange[800]),
+              const SizedBox(height: 10),
+              Text(
+                categoria.titulo,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange[900],
+                ),
+              ),
+              const SizedBox(height: 5),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  categoria.descripcion,
+                  style: const TextStyle(fontSize: 12, color: Colors.black54),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryScreen extends StatelessWidget {
+  final String title;
+
+  const CategoryScreen({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: Colors.orange,
+      ),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(categoria.icon, size: 40, color: categoria.color),
-            const SizedBox(height: 10),
+            Icon(Icons.category, size: 80, color: Colors.orange),
+            const SizedBox(height: 20),
             Text(
-              categoria.titulo,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              'Contenido de $title',
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 5),
-            Text(
-              categoria.descripcion,
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
-              textAlign: TextAlign.center,
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Volver'),
             ),
           ],
         ),
@@ -154,7 +287,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Modelo de datos para las categorías
 class Categoria {
   final String titulo;
   final String descripcion;
@@ -169,7 +301,6 @@ class Categoria {
   });
 }
 
-// Lista de categorías basada en el PDF
 final List<Categoria> categorias = [
   Categoria(
     titulo: "Papelería básica",

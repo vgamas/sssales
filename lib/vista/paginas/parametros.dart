@@ -18,4 +18,6 @@ class Parametros {
 
   // Constantes del sistema para servidores y otros parametros
   static String urlServidor = "";
+
+  static var tamanoSubtitulo;
 }

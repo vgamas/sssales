@@ -12,7 +12,7 @@ class Registro extends StatelessWidget {
       // en el cuerpo va el titulo y los campos y el boton, se colocan dentro de un SingleChildScrollView para poderlos deplazar hacia
       // arriba y hacia abajo libremente, para telefonos con pantallas mas pequeñas o cuando se activa el teclado
 
-      body: SizedBox(
+      body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Center(
@@ -27,14 +27,14 @@ class Registro extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(20),
+                  margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                         colors: <Color>[Colors.yellow, Colors.orange]),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Container(
-                    margin: const EdgeInsets.all(20),
+                    margin: EdgeInsets.all(20),
                     child: Column(
                       children: [
                         Container(
@@ -42,7 +42,7 @@ class Registro extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: const TextField(
+                          child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Nombres y Apellidos',
                               prefixIcon: Icon(Icons.person_outline_outlined),
@@ -50,7 +50,7 @@ class Registro extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -58,7 +58,7 @@ class Registro extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: const TextField(
+                          child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Correo electrónico',
                               prefixIcon: Icon(Icons.mail_outline),
@@ -66,7 +66,7 @@ class Registro extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -74,7 +74,7 @@ class Registro extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: const TextField(
+                          child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Teléfono',
                               prefixIcon: Icon(Icons.phone_outlined),
@@ -82,7 +82,7 @@ class Registro extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -90,7 +90,7 @@ class Registro extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: const TextField(
+                          child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Dirección',
                               prefixIcon: Icon(Icons.location_on_outlined),
@@ -98,7 +98,7 @@ class Registro extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -106,7 +106,7 @@ class Registro extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: const TextField(
+                          child: TextField(
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: 'Contraseña',
@@ -115,7 +115,7 @@ class Registro extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -123,7 +123,7 @@ class Registro extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
-                          child: const TextField(
+                          child: TextField(
                             obscureText: true,
                             decoration: InputDecoration(
                               labelText: 'Confirmar Contraseña',
@@ -132,7 +132,7 @@ class Registro extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 30,
                         ),
                         Container(
@@ -149,7 +149,7 @@ class Registro extends StatelessWidget {
                               // actualizar el archivo del usuario que ya esta logueado para poder hacer las compras
                               // de lo contrario sacar un mensaje de error...
                             },
-                            child: const Text('REGISTRO'),
+                            child: Text('REGISTRO'),
                           ),
                         ),
                       ],

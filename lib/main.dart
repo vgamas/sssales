@@ -1,44 +1,48 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:sssales/vista/paginas/login.dart';
-import 'package:sssales/vista/paginas/productos.dart';
-import 'package:sssales/vista/paginas/splash.dart';
-import 'package:sssales/vista/paginas/parametros.dart';
-import 'package:sssales/vista/paginas/menu.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:sssales/router/app_router.dart';
+import 'package:sssales/services/auth_service.dart';
+import 'package:sssales/services/firestore_services.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  // Configura Remote Config
+  final remoteConfig = FirebaseRemoteConfig.instance;
+  await remoteConfig.setConfigSettings(RemoteConfigSettings(
+    fetchTimeout: const Duration(minutes: 1),
+    minimumFetchInterval: const Duration(hours: 1),
+  ));
+  await remoteConfig.fetchAndActivate();
+  runApp(
+    MultiProvider(
+      providers: [
+        // Proveedores de servicios
+        Provider(create: (_) => AuthService()),
+        Provider(create: (_) => FirestoreService()),
+        StreamProvider<User?>(
+          create: (context) => FirebaseAuth.instance.authStateChanges(),
+          initialData: null,
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter, // Usa el router configurado
       debugShowCheckedModeBanner: false,
-      title: Parametros.nombreTienda,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        //fontFamily: 'YesevaOne',
-        useMaterial3: true,
-      ),
-      home:  const Splash(),
+      theme: ThemeData(primarySwatch: Colors.blue),
     );
   }
 }

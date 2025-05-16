@@ -1,0 +1,2 @@
+E:/Proyectos/sena/sssales/android/app/.cxx/Debug/11i4x646/armeabi-v7a/CMakeFiles/edit_cache.dir
+E:/Proyectos/sena/sssales/android/app/.cxx/Debug/11i4x646/armeabi-v7a/CMakeFiles/rebuild_cache.dir

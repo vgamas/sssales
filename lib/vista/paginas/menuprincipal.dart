@@ -1,31 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true, // Habilita Material 3
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange, // Color principal
-          brightness: Brightness.light, // Tema claro
-        ),
-      ),
-      home: const Menuprincipal(),
-    );
-  }
-}
-
-class Menuprincipal extends StatelessWidget {
-  const Menuprincipal({super.key});
+class MenuPrincipal extends StatelessWidget {
+  final bool isAdmin;
+  
+  const MenuPrincipal({super.key, this.isAdmin = false});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +13,7 @@ class Menuprincipal extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            const Text('SSales', style: TextStyle(color: Colors.white)),
+            const Text('SSSales', style: TextStyle(color: Colors.white)),
             const SizedBox(width: 10),
             Expanded(
               child: Container(
@@ -54,153 +34,122 @@ class Menuprincipal extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: Colors.orange, // Usa el color primario del tema
+        backgroundColor: Colors.orange,
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          if (isAdmin) IconButton(
+            icon: const Icon(Icons.admin_panel_settings),
+            onPressed: () => context.go('/admin'),
+          ),
+        ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.orange,
-              ),
-              child: Text(
-                'Menú SSales',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
+      drawer: _buildDrawer(context),
+      body: _buildBody(context),
+    );
+  }
+
+  Widget _buildDrawer(BuildContext context) {
+    final menuItems = [
+      _MenuItem('Explorar', Icons.explore, '/explore', Colors.blueAccent),
+      _MenuItem('Productos', Icons.shopping_basket, '/products', Colors.brown),
+      _MenuItem('Especiales', Icons.star, '/specials', Colors.orange),
+      _MenuItem('Otros', Icons.more_horiz, '/others', Colors.black),
+      _MenuItem('Puntos', Icons.push_pin_rounded, '/points', Colors.black),
+      _MenuItem('Super ofertas', Icons.local_offer, '/deals', Colors.red),
+      _MenuItem('Liquidacion', Icons.assignment, '/clearance', Colors.purple),
+      _MenuItem('Categorias', Icons.category_sharp, '/categories', Colors.green),
+      _MenuItem('Mi Cuenta', Icons.person, '/profile', Colors.blue),
+    ];
+
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const DrawerHeader(
+            decoration: BoxDecoration(color: Colors.orange),
+            child: Text(
+              'Menú SSales',
+              style: TextStyle(color: Colors.white, fontSize: 24),
             ),
-            ListTile(
-              leading: const Icon(Icons.explore, color: Colors.amber),
-              title: const Text('Explorar'),
-              onTap: () {
-                // Acción al tocar Explorar
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.shopping_basket, color: Colors.amber),
-              title: const Text('Productos'),
-              onTap: () {
-                // Acción al tocar Products
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.star, color: Colors.amber),
-              title: const Text('Especiales'),
-              onTap: () {
-                // Acción al tocar Especiales
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.more_horiz, color: Colors.amber),
-              title: const Text('Otros'),
-              onTap: () {
-                // Acción al tocar Otros
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.push_pin_rounded, color: Colors.amber),
-              title: const Text('Puntos'),
-              onTap: () {
-                // Acción al tocar Puntos
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.local_offer, color: Colors.amber),
-              title: const Text('Super ofertas'),
-              onTap: () {
-                // Acción al tocar Super ofertas
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.assignment, color: Colors.amber),
-              title: const Text('Liquidacion'),
-              onTap: () {
-                // Acción al tocar Liquidacion
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.category_sharp, color: Colors.amber),
-              title: const Text('Categorias'),
-              onTap: () {
-                // Acción al tocar Categorias
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.person, color: Colors.amber),
-              title: const Text('Mi Cuenta'),
-              onTap: () {
-                // Acción al tocar Mi Cuenta
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildIconSection('Explorar', Icons.explore, Colors.blueAccent),
-                _buildIconSection('Productos', Icons.shopping_basket, Colors.brown),
-                _buildIconSection('Especiales', Icons.star, Colors.orange),
-                _buildIconSection('Otros', Icons.more_horiz, Colors.black),
-              ],
-            ),
-            const SizedBox(height: 90),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildIconSection('Puntos', Icons.more_vert, Colors.black),
-                _buildIconSection('Super Ofertas', Icons.local_offer, Colors.red),
-                _buildIconSection('Liquidacion', Icons.assignment, Colors.purple),
-                _buildIconSection('Categorias', Icons.category_sharp, Colors.green),
-              ],
-            ),
-            const SizedBox(height: 30),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 60,
-        color: Colors.orange,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildFooterItem('Inicio', Icons.home, Colors.white),
-            _buildFooterItem('Comprar', Icons.shopping_cart, Colors.white),
-            _buildFooterItem('Cesta', Icons.shopping_basket, Colors.white),
-            _buildFooterItem('Mi Cuenta', Icons.account_circle, Colors.white),
-          ],
-        ),
+          ),
+          ...menuItems.map((item) => _buildDrawerItem(
+            context, 
+            item.title, 
+            item.icon, 
+            item.route,
+            item.color,
+          )),
+        ],
       ),
     );
   }
 
-  Widget _buildIconSection(String title, IconData icon, Color color) {
-    return Column(
-      children: [
-        Icon(icon, size: 40, color: color),
-        const SizedBox(height: 8),
-        Text(title, style: TextStyle(color: color)),
-      ],
+  ListTile _buildDrawerItem(BuildContext context, String title, IconData icon, String route, Color color) {
+    return ListTile(
+      leading: Icon(icon, color: color),
+      title: Text(title),
+      onTap: () {
+        context.go(route);
+        Navigator.pop(context);
+      },
     );
   }
 
-  Widget _buildFooterItem(String title, IconData icon, Color color) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(icon, size: 24, color: color),
-        const SizedBox(height: 4),
-        Text(title, style: TextStyle(color: color, fontSize: 12)),
-      ],
+  Widget _buildBody(BuildContext context) {
+    final menuItems = [
+      _MenuItem('Explorar', Icons.explore, '/explore', Colors.blueAccent),
+      _MenuItem('Productos', Icons.shopping_basket, '/products', Colors.brown),
+      _MenuItem('Especiales', Icons.star, '/specials', Colors.orange),
+      _MenuItem('Otros', Icons.more_horiz, '/others', Colors.black),
+      _MenuItem('Puntos', Icons.push_pin_rounded, '/points', Colors.black),
+      _MenuItem('Super Ofertas', Icons.local_offer, '/deals', Colors.red),
+      _MenuItem('Liquidacion', Icons.assignment, '/clearance', Colors.purple),
+      _MenuItem('Categorias', Icons.category_sharp, '/categories', Colors.green),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: menuItems.sublist(0, 4).map((item) => 
+              _buildIconSection(context, item)
+            ).toList(),
+          ),
+          const SizedBox(height: 90),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: menuItems.sublist(4).map((item) => 
+              _buildIconSection(context, item)
+            ).toList(),
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
     );
   }
+
+  Widget _buildIconSection(BuildContext context, _MenuItem item) {
+    return GestureDetector(
+      onTap: () => context.go(item.route),
+      child: Column(
+        children: [
+          Icon(item.icon, size: 40, color: item.color),
+          const SizedBox(height: 8),
+          Text(item.title, style: TextStyle(color: item.color)),
+        ],
+      ),
+    );
+  }
+}
+
+class _MenuItem {
+  final String title;
+  final IconData icon;
+  final String route;
+  final Color color;
+
+  const _MenuItem(this.title, this.icon, this.route, this.color);
 }

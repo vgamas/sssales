@@ -66,6 +66,98 @@ class _CestaScreenState extends State<CestaScreen> {
     });
   }
 
+  // Método para mostrar el diálogo de pago
+  void _mostrarDialogoPago() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Método de Pago'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Seleccione su método de pago preferido:'),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _mostrarMensajePago('Nequi');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                child: const Text('Pagar con Nequi', style: TextStyle(color: Colors.white)),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _mostrarMensajePago('Daviplata');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                child: const Text('Pagar con Daviplata', style: TextStyle(color: Colors.white)),
+              ),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _contactarAdministrador();
+                },
+                child: const Text('Contactar al administrador'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Método para mostrar mensaje de pago exitoso
+  void _mostrarMensajePago(String metodo) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Pago Exitoso'),
+          content: Text('Su pago con $metodo ha sido procesado correctamente.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Método para contactar al administrador
+  void _contactarAdministrador() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Contactar Administrador'),
+          content: const Text('Por favor comuníquese con el administrador al número: 300-1234567'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   // Método para calcular el total de la compra
   double _calcularTotal() {
     double total = 0;
@@ -79,7 +171,7 @@ class _CestaScreenState extends State<CestaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cesta (7)"),
+        title: Text("Cesta (${articulos.length})"),
         backgroundColor: Colors.orange,
         actions: [
           Stack(
@@ -88,12 +180,19 @@ class _CestaScreenState extends State<CestaScreen> {
                 icon: const Icon(Icons.notifications, color: Colors.white),
                 onPressed: () {},
               ),
-              const Positioned(
+              Positioned(
                 right: 8,
                 top: 8,
-                child: CircleAvatar(
-                  radius: 6,
-                  backgroundColor: Colors.red,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: const BoxConstraints(
+                    minWidth: 12,
+                    minHeight: 12,
+                  ),
                 ),
               ),
             ],
@@ -142,14 +241,12 @@ class _CestaScreenState extends State<CestaScreen> {
                   const Text("Ahorrado: COP 391.18", style: TextStyle(color: Colors.green)),
                   const SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {
-                      // Acción para pagar
-                    },
+                    onPressed: _mostrarDialogoPago,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
                       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                     ),
-                    child: const Text("Pagar (2)", style: TextStyle(color: Colors.white)),
+                    child: Text("Pagar (${articulos.length})", style: const TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
